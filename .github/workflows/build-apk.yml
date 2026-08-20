@@ -66,9 +66,6 @@ jobs:
       - name: Install packages
         run: flutter pub get
 
-      - name: Generate launcher icon
-        run: dart run flutter_launcher_icons
-
       - name: Set Android app label
         run: |
           sed -i 's/android:label="hmgs_arena"/android:label="HMGS ARENA"/' android/app/src/main/AndroidManifest.xml
