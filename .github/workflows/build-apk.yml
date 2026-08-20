@@ -44,9 +44,10 @@ jobs:
       - name: Decode branding assets
         run: |
           mkdir -p assets/branding
-          base64 -d assets/branding/splash_arena.b64 > assets/branding/splash_arena.jpg
-          base64 -d assets/branding/inspired_from_zeus.b64 > assets/branding/inspired_from_zeus.jpg
-          base64 -d assets/branding/app_icon.b64 > assets/branding/app_icon.jpg
+          base64 --ignore-garbage -d assets/branding/splash_arena.b64 > assets/branding/splash_arena.jpg
+          base64 --ignore-garbage -d assets/branding/inspired_from_zeus.b64 > assets/branding/inspired_from_zeus.jpg
+          base64 --ignore-garbage -d assets/branding/app_icon.b64 > assets/branding/app_icon.jpg
+          file assets/branding/*.jpg
 
       - name: Install packages
         run: flutter pub get
