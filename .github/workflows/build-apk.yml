@@ -1,0 +1,68 @@
+name: Build HMGS Arena APK
+
+on:
+  push:
+    branches: [apk-demo-v1]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Preserve HMGS source
+        run: |
+          cp lib/main.dart /tmp/hmgs_main.dart
+          cp pubspec.yaml /tmp/hmgs_pubspec.yaml
+
+      - name: Generate Android project files
+        run: |
+          flutter create . --platforms=android --org com.zorbirey.hmgsarena --project-name hmgs_arena
+          cp /tmp/hmgs_main.dart lib/main.dart
+          cp /tmp/hmgs_pubspec.yaml pubspec.yaml
+
+      - name: Decode branding assets
+        run: |
+          mkdir -p assets/branding
+          base64 -d assets/branding/splash_arena.b64 > assets/branding/splash_arena.jpg
+          base64 -d assets/branding/inspired_from_zeus.b64 > assets/branding/inspired_from_zeus.jpg
+          base64 -d assets/branding/app_icon.b64 > assets/branding/app_icon.jpg
+
+      - name: Install packages
+        run: flutter pub get
+
+      - name: Generate launcher icon
+        run: dart run flutter_launcher_icons
+
+      - name: Set Android app label
+        run: |
+          sed -i 's/android:label="hmgs_arena"/android:label="HMGS ARENA"/' android/app/src/main/AndroidManifest.xml
+
+      - name: Analyze
+        run: flutter analyze --no-fatal-infos
+
+      - name: Build release APK
+        run: flutter build apk --release
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: HMGS-ARENA-APK
+          path: build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error
+          retention-days: 14
