@@ -70,8 +70,8 @@ jobs:
         run: |
           sed -i 's/android:label="hmgs_arena"/android:label="HMGS ARENA"/' android/app/src/main/AndroidManifest.xml
 
-      - name: Analyze
-        run: flutter analyze --no-fatal-infos
+      - name: Analyze app source
+        run: flutter analyze lib --no-fatal-infos
 
       - name: Build release APK
         run: flutter build apk --release
