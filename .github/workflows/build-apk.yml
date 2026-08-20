@@ -3,6 +3,8 @@ name: Build HMGS Arena APK
 on:
   push:
     branches: [apk-demo-v1]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -10,7 +12,6 @@ permissions:
 
 jobs:
   build:
-    if: ${{ !contains(github.event.head_commit.message || '', '[skip build]') }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -72,6 +73,7 @@ jobs:
           retention-days: 14
 
       - name: Publish downloadable APK release
+        if: github.event_name != 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -79,32 +81,4 @@ jobs:
           gh release delete apk-demo-v1 --yes --cleanup-tag || true
           gh release create apk-demo-v1 HMGS-ARENA-DEMO.apk \
             --title "HMGS ARENA Android Demo" \
-            --notes "Android demo build. 3-second Arena splash, 3-second Zeus signature screen, no-scroll home, XP/level titles, ranking preview, neutral quiz answering, post-test results and wrong-answer review."
-
-      - name: Write build success marker
-        run: |
-          rm -f BUILD_FAILURE.txt
-          printf '%s\n' \
-            'HMGS ARENA APK build completed successfully.' \
-            'Download: https://github.com/zorbirey/hmgs-arena/releases/download/apk-demo-v1/HMGS-ARENA-DEMO.apk' \
-            "Commit: $GITHUB_SHA" > BUILD_SUCCESS.txt
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add BUILD_SUCCESS.txt BUILD_FAILURE.txt || true
-          git commit -m '[skip build] Record successful APK build'
-          git push origin HEAD:apk-demo-v1
-
-      - name: Write build failure marker
-        if: failure()
-        run: |
-          rm -f BUILD_SUCCESS.txt
-          printf '%s\n' \
-            'HMGS ARENA APK build failed.' \
-            "Run ID: $GITHUB_RUN_ID" \
-            "Run URL: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
-            "Commit: $GITHUB_SHA" > BUILD_FAILURE.txt
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add BUILD_FAILURE.txt BUILD_SUCCESS.txt || true
-          git commit -m '[skip build] Record failed APK build' || true
-          git push origin HEAD:apk-demo-v1 || true
+            --notes "Android demo build for HMGS ARENA."
