@@ -59,6 +59,19 @@ jobs:
           print('Zeus asset:', len(data), 'bytes')
           PY
 
+      - name: Convert launcher icon to PNG
+        run: |
+          if command -v magick >/dev/null 2>&1; then
+            magick assets/branding/app_icon_v2.jpg -strip -resize 1024x1024 assets/branding/app_icon_launcher.png
+          elif command -v convert >/dev/null 2>&1; then
+            convert assets/branding/app_icon_v2.jpg -strip -resize 1024x1024 assets/branding/app_icon_launcher.png
+          else
+            sudo apt-get update -qq
+            sudo apt-get install -y imagemagick
+            convert assets/branding/app_icon_v2.jpg -strip -resize 1024x1024 assets/branding/app_icon_launcher.png
+          fi
+          file assets/branding/app_icon_launcher.png
+
       - name: Install packages
         run: flutter pub get
 
