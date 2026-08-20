@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#071426" />
+<title>HMGS ARENA Demo</title>
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" href="assets/app-icon.png" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div id="app">
+  <section id="splash1" class="screen splash active" aria-label="HMGS Arena açılış ekranı">
+    <img src="assets/splash-arena.png" alt="HMGS Arena Per Aspera Ad Astra, Zorluklardan Yıldızlara" />
+  </section>
+
+  <section id="splash2" class="screen splash" aria-label="Inspired from Zeus marka ekranı">
+    <img src="assets/zeus.png" alt="Inspired from Zeus" />
+  </section>
+
+  <section id="dashboard" class="screen app-screen">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">HMGS ARENA</div>
+        <h1>Hoş geldin, Gladyatör</h1>
+      </div>
+      <div class="level-badge">SV 1</div>
+    </header>
+
+    <main class="content">
+      <div class="hero-card">
+        <div><span class="muted">Bugünkü hedef</span><strong>20 soru</strong></div>
+        <div><span class="muted">Seri</span><strong>🔥 1 gün</strong></div>
+        <div><span class="muted">XP</span><strong id="xp">0</strong></div>
+      </div>
+
+      <button class="continue-card" id="continueBtn">
+        <span class="small">KALDIĞIN YERDEN DEVAM ET</span>
+        <span class="big" id="continueText">Anayasa Hukuku · Temel İlkeler</span>
+        <span class="arrow">›</span>
+      </button>
+
+      <section>
+        <div class="section-title"><h2>Arena</h2><span>Günlük mücadele</span></div>
+        <button class="primary" id="startQuiz">10 soruluk demo testi başlat</button>
+      </section>
+
+      <section>
+        <div class="section-title"><h2>Denemeler</h2><span>Gerçek sınav temposu</span></div>
+        <div class="exam-card">
+          <div><strong>HMGS Tam Deneme</strong><p>120 soru · 155 dakika · 5 seçenek</p></div>
+          <button id="demoExam">Önizle</button>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-title"><h2>Zayıf Konuların</h2><span>Demo veri</span></div>
+        <div class="weak-grid">
+          <div class="weak"><b>Borçlar Hukuku</b><span>%48</span></div>
+          <div class="weak"><b>İcra ve İflas</b><span>%56</span></div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottomnav">
+      <button class="selected">⌂<span>Arena</span></button>
+      <button>▤<span>Çalışma</span></button>
+      <button>◷<span>Denemeler</span></button>
+      <button>◈<span>Zayıf</span></button>
+    </nav>
+  </section>
+
+  <section id="quiz" class="screen app-screen">
+    <header class="quizbar">
+      <button class="ghost" id="quitQuiz">‹</button>
+      <div><span id="qProgress">1 / 10</span><small>DEMO TEST</small></div>
+      <div id="questionTimer" class="timer">01:18</div>
+    </header>
+    <main class="content quiz-content">
+      <div class="subject-pill" id="subject">Anayasa Hukuku</div>
+      <h2 id="questionText">Yükleniyor...</h2>
+      <div id="options" class="options"></div>
+      <div id="feedback" class="feedback hidden"></div>
+      <button id="nextQuestion" class="primary hidden">Sonraki soru</button>
+    </main>
+  </section>
+
+  <section id="result" class="screen app-screen result-screen">
+    <main class="content result-content">
+      <div class="result-icon">⚡</div>
+      <div class="eyebrow">ARENA TAMAMLANDI</div>
+      <h1>Sonucun</h1>
+      <div class="score" id="score">0 / 10</div>
+      <p id="resultMessage">İlk adımı attın.</p>
+      <div class="result-grid">
+        <div><span>Doğru</span><b id="correctCount">0</b></div>
+        <div><span>Yanlış</span><b id="wrongCount">0</b></div>
+        <div><span>XP</span><b id="earnedXp">0</b></div>
+      </div>
+      <button class="primary" id="backHome">Arena'ya dön</button>
+    </main>
+  </section>
+
+  <div id="toast" class="toast hidden"></div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
