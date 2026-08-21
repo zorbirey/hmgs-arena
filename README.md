@@ -1,15 +1,13 @@
 # HMGS ARENA
 
-HMGS çalışma, deneme, XP/seviye ve sıralama uygulaması.
+HMGS ARENA is the Flutter mobile application for HMGS exam preparation.
 
-Bu repo artık gerçek Flutter mobil uygulama iskeletini barındırır. Android ve iOS ortak Flutter kod tabanı hedeflenmektedir.
+Current Android milestone:
+- Zeus-inspired navy/electric-blue/gold theme
+- tap-to-enter splash flow
+- Arena, Study, Mock and Ranking foundations
+- no instant right/wrong feedback during answering
+- verified question bank wired into the app
+- current verified pool target: 164 questions
 
-## Ürün ilkeleri
-- Açılış: HMGS ARENA splash 3 sn → INSPIRED FROM ZEUS 3 sn → uygulama.
-- Ana kullanım ekranları kaydırmasız tasarlanır; uzun içeriklerde sekme/sayfalama kullanılır.
-- Soru sırasında doğru/yanlış geri bildirimi verilmez.
-- Ücretsiz kullanıcı sonuçtan önce reklam görür; Premium kullanıcı sonucu doğrudan görür.
-- Yanlış sorular test sonunda ayrı sayfalı inceleme ekranında gösterilir.
-- XP kişisel ilerlemeyi; Arena Puanı başarı/sıralamayı temsil eder.
-- Türkiye / il / kişisel sıralama ayrı görünümlerdir.
-- ÖSYM soru metinleri kopyalanmaz; sorular özgün ve resmî mevzuat kaynaklıdır.
+Question-bank development continues on the `question-bank-250` branch.
