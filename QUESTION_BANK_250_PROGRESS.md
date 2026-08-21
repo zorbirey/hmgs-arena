@@ -13,10 +13,10 @@ Doğrulama başlangıç tarihi: 21.08.2026
 
 | Alan | Hedef | Doğrulanmış | Kalan |
 |---|---:|---:|---:|
-| Anayasa Hukuku | 13 | 0 | 13 |
-| Anayasa Yargısı | 6 | 0 | 6 |
-| İdare Hukuku | 13 | 0 | 13 |
-| İdari Yargılama Usulü | 6 | 0 | 6 |
+| Anayasa Hukuku | 13 | 13 | 0 |
+| Anayasa Yargısı | 6 | 6 | 0 |
+| İdare Hukuku | 13 | 13 | 0 |
+| İdari Yargılama Usulü | 6 | 6 | 0 |
 | Medeni Hukuk | 31 | 0 | 31 |
 | Borçlar Hukuku | 25 | 0 | 25 |
 | Ticaret Hukuku | 25 | 25 | 0 |
@@ -33,7 +33,7 @@ Doğrulama başlangıç tarihi: 21.08.2026
 | Milletlerarası Hukuk | 6 | 0 | 6 |
 | Milletlerarası Özel Hukuk | 6 | 0 | 6 |
 | Genel Kamu Hukuku | 6 | 0 | 6 |
-| **TOPLAM** | **250** | **95** | **155** |
+| **TOPLAM** | **250** | **133** | **117** |
 
 ## Dosyalar
 - `assets/questions/verified_batch_001_ticaret.json` — 25 soru
@@ -41,6 +41,10 @@ Doğrulama başlangıç tarihi: 21.08.2026
 - `assets/questions/verified_batch_003_ceza.json` — 19 soru
 - `assets/questions/verified_batch_004_ceza_muhakemesi.json` — 13 soru
 - `assets/questions/verified_batch_005_icra_iflas.json` — 13 soru
+- `assets/questions/verified_batch_006_anayasa.json` — 13 soru
+- `assets/questions/verified_batch_007_anayasa_yargisi.json` — 6 soru
+- `assets/questions/verified_batch_008_idare.json` — 13 soru
+- `assets/questions/verified_batch_009_idari_yargilama.json` — 6 soru
 
 ## Sonraki paket
-Anayasa Hukuku (13) + Anayasa Yargısı (6) + İdare Hukuku (13) + İdari Yargılama Usulü (6).
+Medeni Hukuk (31) ile devam edilecek; ardından Borçlar Hukuku (25) ve İş ve Sosyal Güvenlik Hukuku (13) paketleri hazırlanacak.
