@@ -1,0 +1,16 @@
+{
+  "batchId": "verified-013-vergi-hukuku",
+  "verifiedAt": "2026-08-21",
+  "subject": "Vergi Hukuku",
+  "questionCount": 6,
+  "primarySource": "Türkiye Cumhuriyeti Anayasası - Anayasa Mahkemesi",
+  "primarySourceUrl": "https://www.anayasa.gov.tr/tr/mevzuat/anayasa/",
+  "questions": [
+    {"id":"VERGI-001","topic":"Vergi ödevi","difficulty":"Çok Kolay","question":"Anayasa’nın 73. maddesine göre vergi ödeme yükümlülüğünün amacı aşağıdakilerden hangisidir?","options":["Özel şirketlerin zararlarını karşılamak","Kamu giderlerini karşılamak","Yalnız yerel yönetim bütçesini finanse etmek","Sosyal güvenlik primlerini kaldırmak","Para politikasını yürütmek"],"correctIndex":1,"explanation":"Anayasa m.73/1 uyarınca herkes, kamu giderlerini karşılamak üzere vergi ödemekle yükümlüdür.","sourceRef":"Anayasa m.73/1"},
+    {"id":"VERGI-002","topic":"Mali güç ilkesi","difficulty":"Kolay","question":"Anayasa m.73’e göre vergi yükümlülüğü hangi ölçüte göre yerine getirilir?","options":["Yaşa göre","Medeni duruma göre","Malî güce göre","Meslek kıdemine göre","İkamet süresine göre"],"correctIndex":2,"explanation":"Anayasa vergi yükümlülüğünü kişinin malî gücüne bağlamıştır.","sourceRef":"Anayasa m.73/1"},
+    {"id":"VERGI-003","topic":"Vergide genellik","difficulty":"Orta","question":"Anayasa m.73/1’de vergi ödevinin öznesi hangi ifadeyle belirlenmiştir?","options":["Yalnız vatandaşlar","Yalnız gerçek kişiler","Yalnız tacirler","Herkes","Yalnız gelir elde edenler"],"correctIndex":3,"explanation":"Maddede 'Herkes' ifadesi kullanılarak vergi ödevinin anayasal genellik ilkesi ortaya konulmuştur.","sourceRef":"Anayasa m.73/1"},
+    {"id":"VERGI-004","topic":"Vergi yükünün dağılımı","difficulty":"Orta","question":"Anayasa m.73/2’ye göre vergi yükünün adaletli ve dengeli dağılımı neyin sosyal amacıdır?","options":["Para politikasının","Maliye politikasının","Dış ticaret politikasının","İstihdam politikasının","Rekabet politikasının"],"correctIndex":1,"explanation":"Vergi yükünün adaletli ve dengeli dağılımı maliye politikasının sosyal amacı olarak düzenlenmiştir.","sourceRef":"Anayasa m.73/2"},
+    {"id":"VERGI-005","topic":"Verginin kanuniliği","difficulty":"Zor","question":"Anayasa m.73/3’e göre vergi, resim, harç ve benzeri malî yükümlülükler nasıl konulur, değiştirilir veya kaldırılır?","options":["Cumhurbaşkanı kararıyla sınırsız biçimde","Yönetmelikle","Kanunla","Genelgeyle","Mahkeme içtihadıyla"],"correctIndex":2,"explanation":"Vergi, resim, harç ve benzeri malî yükümlülüklerin konulması, değiştirilmesi ve kaldırılması kanunilik ilkesine tabidir.","sourceRef":"Anayasa m.73/3"},
+    {"id":"VERGI-006","topic":"Cumhurbaşkanına verilen yetki","difficulty":"Çok Zor","question":"Anayasa m.73/4’e göre Cumhurbaşkanına vergi, resim, harç ve benzeri malî yükümlülükler bakımından hangi konuda değişiklik yapma yetkisi verilebilir?","options":["Verginin konusunu tamamen ortadan kaldırma konusunda sınırsız yetki","Kanunun belirttiği yukarı ve aşağı sınırlar içinde muaflık, istisna, indirim ve oranlara ilişkin hükümler","Yeni bir vergi ihdas etme","Vergi suçlarını belirleme","Vergi mahkemelerini kaldırma"],"correctIndex":1,"explanation":"Cumhurbaşkanına ancak kanunun belirttiği yukarı ve aşağı sınırlar içinde muaflık, istisna, indirim ve oranlara ilişkin değişiklik yapma yetkisi verilebilir.","sourceRef":"Anayasa m.73/4"}
+  ]
+}
