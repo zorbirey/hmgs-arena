@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'main.dart' as legacy;
-import 'smart_notes.dart';
+import 'study_hub.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -106,9 +106,7 @@ class _SmartBootFlowState extends State<SmartBootFlow> {
 
   @override
   Widget build(BuildContext context) {
-    if (stage == 0) {
-      return legacy.EntrySplashScreen(onEnter: _enterArena);
-    }
+    if (stage == 0) return legacy.EntrySplashScreen(onEnter: _enterArena);
     if (stage == 1) {
       return const legacy.BrandImageScreen(
         asset: 'assets/branding/inspired_from_zeus.jpg',
@@ -181,7 +179,7 @@ class _SmartArenaShellState extends State<SmartArenaShell> {
         onTogglePremium: _togglePremium,
         onRanking: () => setState(() => tab = 4),
       ),
-      const SmartNotesHub(),
+      const StudyHubPage(),
       const legacy.CompactInfoPage(
         title: 'DENEMELER',
         icon: Icons.timer_rounded,
@@ -216,145 +214,6 @@ class _SmartArenaShellState extends State<SmartArenaShell> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class SmartNotesHub extends StatelessWidget {
-  const SmartNotesHub({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(14, 12, 14, 8),
-      child: Column(
-        children: [
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.bolt_rounded, color: legacy.arenaElectric, size: 20),
-              SizedBox(width: 5),
-              Text(
-                'ÇALIŞMA',
-                style: TextStyle(
-                  fontFamily: 'serif',
-                  fontSize: 23,
-                  color: legacy.arenaGold2,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Expanded(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [Color(0xFF123B64), Color(0xFF0A2038), Color(0xFF061426)],
-                ),
-                borderRadius: BorderRadius.circular(18),
-                border: Border.all(color: const Color(0x6650BFFF)),
-              ),
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(18),
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const SmartNotesScreen()),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(18),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 92,
-                          height: 92,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: legacy.arenaBlue.withOpacity(.18),
-                            border: Border.all(color: const Color(0x88E5BF72)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: legacy.arenaElectric.withOpacity(.12),
-                                blurRadius: 20,
-                              ),
-                            ],
-                          ),
-                          child: const Icon(
-                            Icons.auto_awesome_rounded,
-                            size: 50,
-                            color: legacy.arenaGold2,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          'AKILLI NOTLAR',
-                          style: TextStyle(
-                            fontFamily: 'serif',
-                            color: legacy.arenaGold2,
-                            fontSize: 24,
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        const Text(
-                          'Bilinmesi gerekenler · en çok karıştırılanlar · süre ve sayılar · istisnalar',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Color(0xFFC1D4E5),
-                            height: 1.35,
-                            fontSize: 12,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-                          decoration: BoxDecoration(
-                            color: const Color(0x2214B8FF),
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: const Color(0x4450BFFF)),
-                          ),
-                          child: const Text(
-                            '20 doğrulanmış hızlı tekrar kartı',
-                            style: TextStyle(
-                              color: legacy.arenaElectric,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 8),
-          const Row(
-            children: [
-              Expanded(
-                child: legacy.MiniCard(
-                  label: 'SİSTEM',
-                  title: 'Bildim',
-                  value: 'Kalıcı kayıt',
-                ),
-              ),
-              SizedBox(width: 7),
-              Expanded(
-                child: legacy.MiniCard(
-                  label: 'TEKRAR',
-                  title: 'Tekrar Göster',
-                  value: 'Öncelikli liste',
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }
