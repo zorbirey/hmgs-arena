@@ -1,0 +1,1 @@
+HMGS ARENA Smart Notes build trigger — 21.08.2026
