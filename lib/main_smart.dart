@@ -114,70 +114,248 @@ class _SmartBootFlowState extends State<SmartBootFlow> {
         asset: 'assets/branding/inspired_from_zeus.jpg',
       );
     }
-    return const SmartArenaHost();
+    return const SmartArenaShell();
   }
 }
 
-class SmartArenaHost extends StatelessWidget {
-  const SmartArenaHost({super.key});
+class SmartArenaShell extends StatefulWidget {
+  const SmartArenaShell({super.key});
 
-  void _openNotes(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const SmartNotesScreen()),
+  @override
+  State<SmartArenaShell> createState() => _SmartArenaShellState();
+}
+
+class _SmartArenaShellState extends State<SmartArenaShell> {
+  final store = legacy.ProgressStore();
+  legacy.ProgressData data = const legacy.ProgressData(
+    xp: 0,
+    streak: 1,
+    lastTopic: 'Anayasa Hukuku · Temel İlkeler',
+    premium: false,
+  );
+  int tab = 0;
+  bool loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  Future<void> _load() async {
+    data = await store.load();
+    if (mounted) setState(() => loading = false);
+  }
+
+  Future<void> _togglePremium() async {
+    data = data.copyWith(premium: !data.premium);
+    await store.save(data);
+    if (mounted) setState(() {});
+  }
+
+  Future<void> _startQuiz() async {
+    final result = await Navigator.of(context).push<legacy.QuizResult>(
+      MaterialPageRoute(builder: (_) => legacy.QuizScreen(isPremium: data.premium)),
     );
+    if (result == null) return;
+    data = data.copyWith(
+      xp: data.xp + result.correct * 100,
+      lastTopic: result.lastTopic,
+    );
+    await store.save(data);
+    if (mounted) setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        const legacy.ArenaShell(),
-        Positioned(
-          right: 10,
-          bottom: 68,
-          child: SafeArea(
-            top: false,
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () => _openNotes(context),
-                borderRadius: BorderRadius.circular(22),
-                child: Container(
-                  height: 42,
-                  padding: const EdgeInsets.symmetric(horizontal: 11),
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFFE5BF72), Color(0xFF1466A8)],
-                    ),
-                    borderRadius: BorderRadius.circular(22),
-                    border: Border.all(color: const Color(0xAAFFD98A)),
-                    boxShadow: const [
-                      BoxShadow(color: Color(0x33000000), blurRadius: 12, offset: Offset(0, 4)),
-                    ],
+    if (loading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator(color: legacy.arenaGold)),
+      );
+    }
+
+    final pages = <Widget>[
+      legacy.HomePanel(
+        data: data,
+        onStart: _startQuiz,
+        onTogglePremium: _togglePremium,
+        onRanking: () => setState(() => tab = 4),
+      ),
+      const SmartNotesHub(),
+      const legacy.CompactInfoPage(
+        title: 'DENEMELER',
+        icon: Icons.timer_rounded,
+        body: 'HMGS Tam Deneme: 120 soru · 155 dakika. Doğrulanmış soru havuzu tamamlandıkça deneme sistemi genişletilecek.',
+      ),
+      const legacy.CompactInfoPage(
+        title: 'ZAYIF KONULAR',
+        icon: Icons.analytics_rounded,
+        body: 'En az 5 cevap sonrası başarı oranı düşük konular kişisel çalışma kartlarına dönüşecek.',
+      ),
+      const legacy.RankingPage(),
+    ];
+
+    return Scaffold(
+      body: SafeArea(
+        child: legacy.ZeusBackdrop(
+          child: Column(
+            children: [
+              Expanded(child: pages[tab]),
+              NavigationBar(
+                selectedIndex: tab,
+                labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+                onDestinationSelected: (i) => setState(() => tab = i),
+                destinations: const [
+                  NavigationDestination(icon: Icon(Icons.home_rounded), label: 'Arena'),
+                  NavigationDestination(icon: Icon(Icons.auto_stories_rounded), label: 'Çalışma'),
+                  NavigationDestination(icon: Icon(Icons.timer_rounded), label: 'Deneme'),
+                  NavigationDestination(icon: Icon(Icons.analytics_rounded), label: 'Zayıf'),
+                  NavigationDestination(icon: Icon(Icons.emoji_events_rounded), label: 'Sıralama'),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SmartNotesHub extends StatelessWidget {
+  const SmartNotesHub({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(14, 12, 14, 8),
+      child: Column(
+        children: [
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.bolt_rounded, color: legacy.arenaElectric, size: 20),
+              SizedBox(width: 5),
+              Text(
+                'ÇALIŞMA',
+                style: TextStyle(
+                  fontFamily: 'serif',
+                  fontSize: 23,
+                  color: legacy.arenaGold2,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Expanded(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color(0xFF123B64), Color(0xFF0A2038), Color(0xFF061426)],
+                ),
+                borderRadius: BorderRadius.circular(18),
+                border: Border.all(color: const Color(0x6650BFFF)),
+              ),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(18),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const SmartNotesScreen()),
                   ),
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.auto_stories_rounded, size: 18, color: Colors.white),
-                      SizedBox(width: 6),
-                      Text(
-                        'Akıllı Notlar',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w900,
+                  child: Padding(
+                    padding: const EdgeInsets.all(18),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 92,
+                          height: 92,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: legacy.arenaBlue.withOpacity(.18),
+                            border: Border.all(color: const Color(0x88E5BF72)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: legacy.arenaElectric.withOpacity(.12),
+                                blurRadius: 20,
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.auto_awesome_rounded,
+                            size: 50,
+                            color: legacy.arenaGold2,
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 3),
-                      Icon(Icons.bolt_rounded, size: 16, color: Color(0xFFFFE19B)),
-                    ],
+                        const SizedBox(height: 16),
+                        const Text(
+                          'AKILLI NOTLAR',
+                          style: TextStyle(
+                            fontFamily: 'serif',
+                            color: legacy.arenaGold2,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          'Bilinmesi gerekenler · en çok karıştırılanlar · süre ve sayılar · istisnalar',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Color(0xFFC1D4E5),
+                            height: 1.35,
+                            fontSize: 12,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                          decoration: BoxDecoration(
+                            color: const Color(0x2214B8FF),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: const Color(0x4450BFFF)),
+                          ),
+                          child: const Text(
+                            '20 doğrulanmış hızlı tekrar kartı',
+                            style: TextStyle(
+                              color: legacy.arenaElectric,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
+          const SizedBox(height: 8),
+          const Row(
+            children: [
+              Expanded(
+                child: legacy.MiniCard(
+                  label: 'SİSTEM',
+                  title: 'Bildim',
+                  value: 'Kalıcı kayıt',
+                ),
+              ),
+              SizedBox(width: 7),
+              Expanded(
+                child: legacy.MiniCard(
+                  label: 'TEKRAR',
+                  title: 'Tekrar Göster',
+                  value: 'Öncelikli liste',
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
