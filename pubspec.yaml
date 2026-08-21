@@ -1,7 +1,7 @@
 name: hmgs_arena
 description: HMGS ARENA Android demo
 publish_to: "none"
-version: 0.3.0+4
+version: 0.3.1+5
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
@@ -29,5 +29,3 @@ flutter_launcher_icons:
   android: true
   ios: false
   image_path: assets/branding/app_icon_launcher.png
-  adaptive_icon_background: "#020914"
-  adaptive_icon_foreground: assets/branding/app_icon_launcher.png
