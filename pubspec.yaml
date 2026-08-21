@@ -1,0 +1,31 @@
+name: hmgs_arena
+description: HMGS ARENA Android demo
+publish_to: "none"
+version: 0.3.1+5
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.5.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.3
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/branding/splash_arena_v2.jpg
+    - assets/branding/inspired_from_zeus.jpg
+    - assets/branding/app_icon_v2.jpg
+    - assets/questions/
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: assets/branding/app_icon_launcher.png

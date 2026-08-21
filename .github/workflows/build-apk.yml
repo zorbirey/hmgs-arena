@@ -1,0 +1,216 @@
+name: Build HMGS Arena APK
+
+on:
+  push:
+    branches: [apk-demo-v1]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Preserve HMGS source
+        run: |
+          cp lib/main.dart /tmp/hmgs_main.dart
+          cp lib/main_smart.dart /tmp/hmgs_main_smart.dart
+          cp lib/smart_notes.dart /tmp/hmgs_smart_notes.dart
+          cp lib/study_hub.dart /tmp/hmgs_study_hub.dart
+          cp pubspec.yaml /tmp/hmgs_pubspec.yaml
+
+      - name: Generate Android project files
+        run: |
+          flutter create . --platforms=android --org com.zorbirey.hmgsarena --project-name hmgs_arena
+          cp /tmp/hmgs_main.dart lib/main.dart
+          cp /tmp/hmgs_main_smart.dart lib/main_smart.dart
+          cp /tmp/hmgs_smart_notes.dart lib/smart_notes.dart
+          cp /tmp/hmgs_study_hub.dart lib/study_hub.dart
+          cp /tmp/hmgs_pubspec.yaml pubspec.yaml
+
+      - name: Generate validated HMGS Zeus branding assets
+        run: |
+          python3 -m pip install --quiet pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw, ImageFont
+
+          root = Path('assets/branding')
+          root.mkdir(parents=True, exist_ok=True)
+          GOLD=(229,191,114); GOLD2=(255,217,138); BLUE=(72,183,255)
+          NAVY=(2,9,20); NAVY2=(7,24,44); WHITE=(245,244,239)
+
+          def font(size,bold=False):
+              p='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf' if bold else '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
+              return ImageFont.truetype(p,size) if Path(p).exists() else ImageFont.load_default()
+
+          def gradient(w,h):
+              im=Image.new('RGB',(w,h),NAVY); px=im.load()
+              for y in range(h):
+                  t=y/max(1,h-1)
+                  c=(int(NAVY2[0]*(1-t)+NAVY[0]*t),int(NAVY2[1]*(1-t)+NAVY[1]*t),int((NAVY2[2]+20)*(1-t)+NAVY[2]*t))
+                  for x in range(w): px[x,y]=c
+              return im
+
+          def ct(d,w,y,text,f,fill,stroke=0):
+              b=d.textbbox((0,0),text,font=f,stroke_width=stroke)
+              d.text(((w-(b[2]-b[0]))//2,y),text,font=f,fill=fill,stroke_width=stroke,stroke_fill=(70,45,15))
+
+          def bolt(d,pts,width=8):
+              d.line(pts,fill=BLUE,width=width)
+              d.line(pts,fill=(205,240,255),width=max(2,width//3))
+
+          def helmet(d,cx,cy,s=1.0):
+              d.polygon([(cx-90*s,cy-180*s),(cx+90*s,cy-180*s),(cx+58*s,cy-92*s),(cx-58*s,cy-92*s)],fill=GOLD)
+              d.polygon([(cx,cy-115*s),(cx+100*s,cy-55*s),(cx+76*s,cy+84*s),(cx,cy+135*s),(cx-76*s,cy+84*s),(cx-100*s,cy-55*s)],fill=GOLD2)
+              d.polygon([(cx,cy-88*s),(cx+66*s,cy-45*s),(cx+48*s,cy+18*s),(cx,cy+58*s),(cx-48*s,cy+18*s),(cx-66*s,cy-45*s)],fill=(105,66,20))
+              d.polygon([(cx-52*s,cy-5*s),(cx-6*s,cy+5*s),(cx-45*s,cy+24*s)],fill=NAVY)
+              d.polygon([(cx+52*s,cy-5*s),(cx+6*s,cy+5*s),(cx+45*s,cy+24*s)],fill=NAVY)
+
+          # Splash 720x1280
+          im=gradient(720,1280); d=ImageDraw.Draw(im)
+          bolt(d,[(70,30),(125,125),(96,215),(148,310),(105,430)],9)
+          bolt(d,[(660,55),(605,165),(638,260),(585,390)],8)
+          helmet(d,360,235,.75)
+          ct(d,720,375,'HMGS',font(100,True),GOLD2,2)
+          ct(d,720,478,'ARENA',font(45,True),GOLD)
+          ct(d,720,580,'PER ASPERA AD ASTRA',font(31,True),WHITE)
+          ct(d,720,638,'ZORLUKLARDAN YILDIZLARA',font(25,True),GOLD2)
+          d.ellipse((130,730,590,1125),outline=(30,100,170),width=6)
+          d.polygon([(350,805),(405,805),(370,900),(430,900),(315,1040),(350,940),(298,940)],fill=GOLD2)
+          d.rounded_rectangle((70,1080,650,1205),radius=28,fill=(7,31,61),outline=GOLD2,width=5)
+          ct(d,720,1115,'ARENAYA GİR',font(42,True),GOLD2)
+          im.save(root/'splash_arena_v2.jpg','JPEG',quality=93,optimize=True,progressive=False)
+
+          # Zeus signature 720x1280, clearly visible figure
+          im=gradient(720,1280); d=ImageDraw.Draw(im)
+          bolt(d,[(80,70),(145,195),(105,320),(165,455),(120,620)],11)
+          bolt(d,[(650,95),(590,215),(630,315),(565,455)],8)
+          ct(d,720,55,'HMGS ARENA',font(30,True),GOLD2)
+          ct(d,720,120,'INSPIRED FROM',font(37,True),WHITE)
+          ct(d,720,170,'ZEUS',font(82,True),GOLD2,2)
+          # head, hair, beard, torso and arms
+          d.ellipse((265,300,455,495),fill=(188,153,117),outline=GOLD2,width=5)
+          d.arc((245,270,475,530),190,355,fill=WHITE,width=18)
+          d.polygon([(278,405),(442,405),(420,610),(360,680),(300,610)],fill=(225,225,220),outline=WHITE)
+          d.polygon([(215,560),(505,560),(600,980),(120,980)],fill=(70,80,95),outline=GOLD,width=6)
+          d.line([(230,620),(95,365)],fill=(188,153,117),width=50)
+          d.line([(490,620),(610,805)],fill=(188,153,117),width=46)
+          d.polygon([(75,270),(120,270),(100,350),(150,350),(70,500),(92,385),(50,385)],fill=(225,245,255))
+          d.ellipse((307,370,338,400),fill=BLUE); d.ellipse((382,370,413,400),fill=BLUE)
+          ct(d,720,1045,'GÜÇ · MİRAS · ARENA',font(28,True),GOLD)
+          ct(d,720,1095,'HMGS ARENA',font(42,True),WHITE)
+          im.save(root/'inspired_from_zeus.jpg','JPEG',quality=93,optimize=True,progressive=False)
+
+          # Launcher icon 1024x1024, padded so Android does not crop it
+          icon=Image.new('RGB',(1024,1024),NAVY); di=ImageDraw.Draw(icon)
+          for r in range(470,100,-28):
+              di.ellipse((512-r,512-r,512+r,512+r),outline=(8,55,110),width=4)
+          bolt(di,[(110,130),(250,280),(190,430),(310,555)],16)
+          bolt(di,[(910,130),(770,285),(835,430),(705,560)],14)
+          helmet(di,512,385,1.35)
+          ct(di,1024,730,'HMGS',font(96,True),GOLD2,2)
+          ct(di,1024,845,'ARENA',font(58,True),GOLD)
+          icon.save(root/'app_icon_launcher.png','PNG',optimize=True)
+          icon.resize((512,512),Image.Resampling.LANCZOS).save(root/'app_icon_v2.jpg','JPEG',quality=94,optimize=True,progressive=False)
+
+          for p in [root/'splash_arena_v2.jpg',root/'inspired_from_zeus.jpg',root/'app_icon_v2.jpg',root/'app_icon_launcher.png']:
+              with Image.open(p) as check: check.verify()
+              print(p, p.stat().st_size)
+          PY
+
+      - name: Force Zeus watermark across the app
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('lib/main.dart')
+          s=p.read_text(encoding='utf-8')
+          old="""          child,\n        ],\n      ),\n    );\n  }\n}\n\nclass ProgressData"""
+          new="""          Positioned.fill(\n            child: IgnorePointer(\n              child: Opacity(\n                opacity: .075,\n                child: Image.asset(\n                  'assets/branding/inspired_from_zeus.jpg',\n                  fit: BoxFit.cover,\n                  alignment: Alignment.topCenter,\n                  filterQuality: FilterQuality.high,\n                ),\n              ),\n            ),\n          ),\n          child,\n        ],\n      ),\n    );\n  }\n}\n\nclass ProgressData"""
+          if old not in s:
+              raise SystemExit('ZeusBackdrop patch target not found')
+          s=s.replace(old,new,1)
+          s=s.replace("fit: BoxFit.contain,\n                filterQuality", "fit: BoxFit.cover,\n                filterQuality",1)
+          s=s.replace("fit: BoxFit.contain,\n            width: double.infinity", "fit: BoxFit.cover,\n            width: double.infinity",1)
+          p.write_text(s,encoding='utf-8')
+          PY
+
+      - name: Inject verified questions into Arena
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,re
+          files=sorted(Path('assets/questions').glob('verified_batch_*.json'))
+          questions=[]
+          for path in files:
+              data=json.loads(path.read_text(encoding='utf-8'))
+              for q in data['questions']:
+                  questions.append({**q,'subject':data['subject']})
+          if len(questions) < 164:
+              raise SystemExit(f'Expected at least 164 verified questions, found {len(questions)}')
+          questions=questions[:164]
+          def ds(v): return json.dumps(v,ensure_ascii=False)
+          rows=[]
+          for q in questions:
+              opts=', '.join(ds(x) for x in q['options'])
+              rows.append('  ArenaQuestion(' + f'subject: {ds(q["subject"])}, topic: {ds(q["topic"])}, text: {ds(q["question"])}, options: <String>[{opts}], correct: {q["correctIndex"]}, explanation: {ds(q["explanation"])})')
+          repl='final allVerifiedQuestions = <ArenaQuestion>[\n'+',\n'.join(rows)+'\n];\n\nfinal demoQuestions = (List<ArenaQuestion>.from(allVerifiedQuestions)..shuffle()).take(10).toList();\n\nclass ArenaShell'
+          p=Path('lib/main.dart'); text=p.read_text(encoding='utf-8')
+          pattern=r'(?:const demoQuestions = <ArenaQuestion>\[.*?\n\];|final allVerifiedQuestions = <ArenaQuestion>\[.*?\n\];\n\nfinal demoQuestions = .*?;)\n\nclass ArenaShell'
+          text,n=re.subn(pattern,repl,text,flags=re.S)
+          if n != 1: raise SystemExit(f'Question pool replacement count was {n}')
+          text=text.replace("subtitle: '133 soruluk havuz · rastgele 10'","subtitle: '164 soruluk havuz · rastgele 10'")
+          text=text.replace("subtitle: '95 soruluk havuz · rastgele 10'","subtitle: '164 soruluk havuz · rastgele 10'")
+          text=text.replace("subtitle: '10 soruluk demo'","subtitle: '164 soruluk havuz · rastgele 10'")
+          text=text.replace("const Text('DEMO TEST'","const Text('ARENA TESTİ'")
+          p.write_text(text,encoding='utf-8')
+          print('Injected verified questions:',len(questions))
+          PY
+
+      - name: Install packages
+        run: flutter pub get
+
+      - name: Generate launcher icons
+        run: dart run flutter_launcher_icons
+
+      - name: Set Android app label
+        run: |
+          sed -i 's/android:label="hmgs_arena"/android:label="HMGS ARENA"/' android/app/src/main/AndroidManifest.xml
+
+      - name: Analyze app source
+        run: flutter analyze lib --no-fatal-infos
+
+      - name: Build release APK
+        run: flutter build apk --release -t lib/main_smart.dart
+
+      - name: Validate APK archive
+        run: |
+          unzip -t build/app/outputs/flutter-apk/app-release.apk >/dev/null
+          test -s build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: HMGS-ARENA-ZEUS-FIXED-V3
+          path: build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error
+          retention-days: 14
