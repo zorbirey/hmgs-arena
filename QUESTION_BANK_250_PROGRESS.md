@@ -24,7 +24,7 @@ Doğrulama başlangıç tarihi: 21.08.2026
 | İcra ve İflas Hukuku | 13 | 13 | 0 |
 | Ceza Hukuku | 19 | 19 | 0 |
 | Ceza Yargılama Usulü | 13 | 13 | 0 |
-| İş ve Sosyal Güvenlik Hukuku | 13 | 0 | 13 |
+| İş ve Sosyal Güvenlik Hukuku | 13 | 13 | 0 |
 | Vergi Hukuku | 6 | 0 | 6 |
 | Vergi Usul Hukuku | 6 | 0 | 6 |
 | Avukatlık Hukuku | 6 | 0 | 6 |
@@ -33,7 +33,7 @@ Doğrulama başlangıç tarihi: 21.08.2026
 | Milletlerarası Hukuk | 6 | 0 | 6 |
 | Milletlerarası Özel Hukuk | 6 | 0 | 6 |
 | Genel Kamu Hukuku | 6 | 0 | 6 |
-| **TOPLAM** | **250** | **189** | **61** |
+| **TOPLAM** | **250** | **202** | **48** |
 
 ## Dosyalar
 - `assets/questions/verified_batch_001_ticaret.json` — 25 soru
@@ -47,6 +47,7 @@ Doğrulama başlangıç tarihi: 21.08.2026
 - `assets/questions/verified_batch_009_idari_yargilama.json` — 6 soru
 - `assets/questions/verified_batch_010_medeni.json` — 31 soru
 - `assets/questions/verified_batch_011_borclar.json` — 25 soru
+- `assets/questions/verified_batch_012_is_sosyal_guvenlik.json` — 13 soru
 
 ## Sonraki paket
-İş ve Sosyal Güvenlik Hukuku (13) ile 202 seviyesine çıkılacak; ardından kalan altı-soruluk alanlar tamamlanacak.
+Kalan 48 soru sekiz ayrı 6-soruluk alanda tamamlanacak: Vergi Hukuku, Vergi Usul Hukuku, Avukatlık Hukuku, Hukuk Felsefesi ve Sosyolojisi, Türk Hukuk Tarihi, Milletlerarası Hukuk, Milletlerarası Özel Hukuk ve Genel Kamu Hukuku.
