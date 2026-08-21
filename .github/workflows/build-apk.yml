@@ -59,7 +59,7 @@ jobs:
           print('Zeus asset:', len(data), 'bytes')
           PY
 
-      - name: Inject 133 verified questions into Arena
+      - name: Inject 164 verified questions into Arena
         run: |
           python3 - <<'PY'
           from pathlib import Path
@@ -73,8 +73,8 @@ jobs:
               for q in data['questions']:
                   questions.append({**q, 'subject': subject})
 
-          if len(questions) != 133:
-              raise SystemExit(f'Expected 133 verified questions, found {len(questions)}')
+          if len(questions) != 164:
+              raise SystemExit(f'Expected 164 verified questions, found {len(questions)}')
 
           def dstr(value):
               return json.dumps(value, ensure_ascii=False)
@@ -105,8 +105,9 @@ jobs:
           if n != 1:
               raise SystemExit(f'Question pool replacement count was {n}')
 
-          text = text.replace("subtitle: '95 soruluk havuz · rastgele 10'", "subtitle: '133 soruluk havuz · rastgele 10'")
-          text = text.replace("subtitle: '10 soruluk demo'", "subtitle: '133 soruluk havuz · rastgele 10'")
+          text = text.replace("subtitle: '133 soruluk havuz · rastgele 10'", "subtitle: '164 soruluk havuz · rastgele 10'")
+          text = text.replace("subtitle: '95 soruluk havuz · rastgele 10'", "subtitle: '164 soruluk havuz · rastgele 10'")
+          text = text.replace("subtitle: '10 soruluk demo'", "subtitle: '164 soruluk havuz · rastgele 10'")
           text = text.replace("const Text('DEMO TEST'", "const Text('ARENA TESTİ'")
           p.write_text(text, encoding='utf-8')
           print('Injected verified questions:', len(questions))
@@ -128,7 +129,7 @@ jobs:
       - name: Upload Actions artifact
         uses: actions/upload-artifact@v4
         with:
-          name: HMGS-ARENA-APK-133Q
+          name: HMGS-ARENA-APK-164Q
           path: build/app/outputs/flutter-apk/app-release.apk
           if-no-files-found: error
           retention-days: 14
@@ -138,8 +139,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          cp build/app/outputs/flutter-apk/app-release.apk HMGS-ARENA-133Q.apk
-          gh release delete apk-133q --yes --cleanup-tag || true
-          gh release create apk-133q HMGS-ARENA-133Q.apk \
-            --title "HMGS ARENA 133 Soru" \
-            --notes "133 doğrulanmış soruluk havuz. Arena her açılışta havuzdan rastgele 10 soru seçer."
+          cp build/app/outputs/flutter-apk/app-release.apk HMGS-ARENA-164Q.apk
+          gh release delete apk-164q --yes --cleanup-tag || true
+          gh release create apk-164q HMGS-ARENA-164Q.apk \
+            --title "HMGS ARENA 164 Soru" \
+            --notes "164 doğrulanmış soruluk havuz. Arena her açılışta havuzdan rastgele 10 soru seçer."
