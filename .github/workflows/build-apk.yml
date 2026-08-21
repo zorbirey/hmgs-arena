@@ -2,7 +2,7 @@ name: Build HMGS Arena APK
 
 on:
   push:
-    branches: [apk-demo-v1]
+    branches: [apk-demo-v1, smart-notes-v1]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -33,12 +33,16 @@ jobs:
       - name: Preserve HMGS source
         run: |
           cp lib/main.dart /tmp/hmgs_main.dart
+          cp lib/smart_main.dart /tmp/hmgs_smart_main.dart
+          cp lib/smart_notes.dart /tmp/hmgs_smart_notes.dart
           cp pubspec.yaml /tmp/hmgs_pubspec.yaml
 
       - name: Generate Android project files
         run: |
           flutter create . --platforms=android --org com.zorbirey.hmgsarena --project-name hmgs_arena
           cp /tmp/hmgs_main.dart lib/main.dart
+          cp /tmp/hmgs_smart_main.dart lib/smart_main.dart
+          cp /tmp/hmgs_smart_notes.dart lib/smart_notes.dart
           cp /tmp/hmgs_pubspec.yaml pubspec.yaml
 
       - name: Decode Zeus signature asset
@@ -123,13 +127,13 @@ jobs:
       - name: Analyze app source
         run: flutter analyze lib --no-fatal-infos
 
-      - name: Build release APK
-        run: flutter build apk --release
+      - name: Build Smart Notes release APK
+        run: flutter build apk --release -t lib/smart_main.dart
 
       - name: Upload Actions artifact
         uses: actions/upload-artifact@v4
         with:
-          name: HMGS-ARENA-APK-164Q
+          name: HMGS-ARENA-SMART-NOTES-APK
           path: build/app/outputs/flutter-apk/app-release.apk
           if-no-files-found: error
           retention-days: 14
@@ -139,8 +143,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          cp build/app/outputs/flutter-apk/app-release.apk HMGS-ARENA-164Q.apk
-          gh release delete apk-164q --yes --cleanup-tag || true
-          gh release create apk-164q HMGS-ARENA-164Q.apk \
-            --title "HMGS ARENA 164 Soru" \
-            --notes "164 doğrulanmış soruluk havuz. Arena her açılışta havuzdan rastgele 10 soru seçer."
+          cp build/app/outputs/flutter-apk/app-release.apk HMGS-ARENA-SMART-NOTES.apk
+          gh release delete apk-smart-notes --yes --cleanup-tag || true
+          gh release create apk-smart-notes HMGS-ARENA-SMART-NOTES.apk \
+            --title "HMGS ARENA Akıllı Notlar" \
+            --notes "Çalışma sekmesine 30 Akıllı Not, Karıştırılanlar ve Süre-Rakam filtreleri eklendi."
