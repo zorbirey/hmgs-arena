@@ -1,10 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-void main() {
-  runApp(const HmgsArenaApp());
-}
+void main() => runApp(const HmgsArenaApp());
 
 class HmgsArenaApp extends StatelessWidget {
   const HmgsArenaApp({super.key});
@@ -44,8 +43,8 @@ class _IntroFlowState extends State<IntroFlow> {
     super.initState();
     timer = Timer.periodic(const Duration(seconds: 3), (_) {
       if (!mounted) return;
-      if (page < 1) {
-        setState(() => page++);
+      if (page == 0) {
+        setState(() => page = 1);
       } else {
         timer?.cancel();
         Navigator.of(context).pushReplacement(
@@ -63,67 +62,34 @@ class _IntroFlowState extends State<IntroFlow> {
 
   @override
   Widget build(BuildContext context) {
-    if (page == 0) {
-      return const BrandSplash(
-        icon: Icons.sports_martial_arts,
-        title: 'HMGS ARENA',
-        subtitle: 'PER ASPERA AD ASTRA\nZorluklardan yıldızlara',
-      );
-    }
-    return const BrandSplash(
-      icon: Icons.bolt,
-      title: 'INSPIRED FROM ZEUS',
-      subtitle: 'Bilgi, disiplin ve mücadele',
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 450),
+      child: AssetSplash(
+        key: ValueKey(page),
+        assetPath: page == 0
+            ? 'assets/hmgs-cover.svg'
+            : 'assets/zeus-intro.svg',
+      ),
     );
   }
 }
 
-class BrandSplash extends StatelessWidget {
-  const BrandSplash({
-    super.key,
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-  });
+class AssetSplash extends StatelessWidget {
+  const AssetSplash({super.key, required this.assetPath});
 
-  final IconData icon;
-  final String title;
-  final String subtitle;
+  final String assetPath;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFF101B2B), Color(0xFF02060B)],
-          ),
-        ),
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 116, color: const Color(0xFFD7A84A)),
-              const SizedBox(height: 24),
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 34,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 2,
-                ),
-              ),
-              const SizedBox(height: 14),
-              Text(
-                subtitle,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 17, height: 1.5),
-              ),
-            ],
+      backgroundColor: const Color(0xFF020711),
+      body: SizedBox.expand(
+        child: SvgPicture.asset(
+          assetPath,
+          fit: BoxFit.cover,
+          alignment: Alignment.center,
+          placeholderBuilder: (_) => const Center(
+            child: CircularProgressIndicator(),
           ),
         ),
       ),
@@ -143,12 +109,12 @@ class _ArenaShellState extends State<ArenaShell> {
 
   @override
   Widget build(BuildContext context) {
-    final pages = [
-      const HomePage(),
-      const StudyPage(),
-      const TrialExamPage(),
-      const WeakTopicsPage(),
-      const RankingPage(),
+    const pages = [
+      HomePage(),
+      StudyPage(),
+      TrialExamPage(),
+      WeakTopicsPage(),
+      RankingPage(),
     ];
 
     return Scaffold(
@@ -195,8 +161,8 @@ class StatRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: const [
+    return const Row(
+      children: [
         Expanded(child: StatBox(label: 'CAN', value: '1', icon: Icons.favorite)),
         SizedBox(width: 10),
         Expanded(child: StatBox(label: 'SERİ', value: '12', icon: Icons.local_fire_department)),
@@ -331,7 +297,9 @@ class TrialExamPage extends StatelessWidget {
             height: 58,
             child: FilledButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const ExamSessionPage()));
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const ExamSessionPage()),
+                );
               },
               child: const Text('DENEMEYİ BAŞLAT', style: TextStyle(fontWeight: FontWeight.w900)),
             ),
@@ -362,9 +330,7 @@ class _ExamSessionPageState extends State<ExamSessionPage> {
     super.initState();
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (!mounted) return;
-      if (secondsLeft > 0) {
-        setState(() => secondsLeft--);
-      }
+      if (secondsLeft > 0) setState(() => secondsLeft--);
     });
   }
 
@@ -374,19 +340,27 @@ class _ExamSessionPageState extends State<ExamSessionPage> {
     super.dispose();
   }
 
-  String get clock => '${(secondsLeft ~/ 60).toString().padLeft(2, '0')}:${(secondsLeft % 60).toString().padLeft(2, '0')}';
+  String get clock =>
+      '${(secondsLeft ~/ 60).toString().padLeft(2, '0')}:${(secondsLeft % 60).toString().padLeft(2, '0')}';
 
   @override
   Widget build(BuildContext context) {
     final danger = selected == -1 && secondsLeft <= 10;
     return Scaffold(
-      backgroundColor: danger && secondsLeft.isEven ? const Color(0xFF651111) : const Color(0xFF061120),
+      backgroundColor: danger && secondsLeft.isEven
+          ? const Color(0xFF651111)
+          : const Color(0xFF061120),
       appBar: AppBar(
         title: Text('$current / 120'),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 18),
-            child: Center(child: Text(clock, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900))),
+            child: Center(
+              child: Text(
+                clock,
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+              ),
+            ),
           ),
         ],
       ),
@@ -426,7 +400,12 @@ class _ExamSessionPageState extends State<ExamSessionPage> {
               const Spacer(),
               Row(
                 children: [
-                  Expanded(child: OutlinedButton(onPressed: current > 1 ? () => setState(() => current--) : null, child: const Text('ÖNCEKİ'))),
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: current > 1 ? () => setState(() => current--) : null,
+                      child: const Text('ÖNCEKİ'),
+                    ),
+                  ),
                   const SizedBox(width: 10),
                   Expanded(
                     child: FilledButton(
@@ -484,7 +463,12 @@ class WeakTopicCard extends StatelessWidget {
       decoration: cardDecoration,
       child: Row(
         children: [
-          Expanded(child: Text('$course\n$topic', style: const TextStyle(fontWeight: FontWeight.w700))),
+          Expanded(
+            child: Text(
+              '$course\n$topic',
+              style: const TextStyle(fontWeight: FontWeight.w700),
+            ),
+          ),
           Text('%$score', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900)),
         ],
       ),
@@ -522,7 +506,9 @@ class ArenaScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title, style: const TextStyle(fontWeight: FontWeight.w900))),
+      appBar: AppBar(
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w900)),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
