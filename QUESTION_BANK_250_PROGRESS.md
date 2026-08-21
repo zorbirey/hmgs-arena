@@ -17,7 +17,7 @@ Doğrulama başlangıç tarihi: 21.08.2026
 | Anayasa Yargısı | 6 | 6 | 0 |
 | İdare Hukuku | 13 | 13 | 0 |
 | İdari Yargılama Usulü | 6 | 6 | 0 |
-| Medeni Hukuk | 31 | 0 | 31 |
+| Medeni Hukuk | 31 | 31 | 0 |
 | Borçlar Hukuku | 25 | 0 | 25 |
 | Ticaret Hukuku | 25 | 25 | 0 |
 | Hukuk Yargılama Usulü | 25 | 25 | 0 |
@@ -33,7 +33,7 @@ Doğrulama başlangıç tarihi: 21.08.2026
 | Milletlerarası Hukuk | 6 | 0 | 6 |
 | Milletlerarası Özel Hukuk | 6 | 0 | 6 |
 | Genel Kamu Hukuku | 6 | 0 | 6 |
-| **TOPLAM** | **250** | **133** | **117** |
+| **TOPLAM** | **250** | **164** | **86** |
 
 ## Dosyalar
 - `assets/questions/verified_batch_001_ticaret.json` — 25 soru
@@ -45,6 +45,7 @@ Doğrulama başlangıç tarihi: 21.08.2026
 - `assets/questions/verified_batch_007_anayasa_yargisi.json` — 6 soru
 - `assets/questions/verified_batch_008_idare.json` — 13 soru
 - `assets/questions/verified_batch_009_idari_yargilama.json` — 6 soru
+- `assets/questions/verified_batch_010_medeni.json` — 31 soru
 
 ## Sonraki paket
-Medeni Hukuk (31) ile devam edilecek; ardından Borçlar Hukuku (25) ve İş ve Sosyal Güvenlik Hukuku (13) paketleri hazırlanacak.
+Borçlar Hukuku (25) ile 189 seviyesine çıkılacak; ardından İş ve Sosyal Güvenlik Hukuku (13) ve kalan 12 altı-soruluk alan tamamlanacak.
