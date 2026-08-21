@@ -21,9 +21,9 @@ Doğrulama başlangıç tarihi: 21.08.2026
 | Borçlar Hukuku | 25 | 0 | 25 |
 | Ticaret Hukuku | 25 | 25 | 0 |
 | Hukuk Yargılama Usulü | 25 | 25 | 0 |
-| İcra ve İflas Hukuku | 13 | 0 | 13 |
-| Ceza Hukuku | 19 | 0 | 19 |
-| Ceza Yargılama Usulü | 13 | 0 | 13 |
+| İcra ve İflas Hukuku | 13 | 13 | 0 |
+| Ceza Hukuku | 19 | 19 | 0 |
+| Ceza Yargılama Usulü | 13 | 13 | 0 |
 | İş ve Sosyal Güvenlik Hukuku | 13 | 0 | 13 |
 | Vergi Hukuku | 6 | 0 | 6 |
 | Vergi Usul Hukuku | 6 | 0 | 6 |
@@ -33,18 +33,23 @@ Doğrulama başlangıç tarihi: 21.08.2026
 | Milletlerarası Hukuk | 6 | 0 | 6 |
 | Milletlerarası Özel Hukuk | 6 | 0 | 6 |
 | Genel Kamu Hukuku | 6 | 0 | 6 |
-| **TOPLAM** | **250** | **50** | **200** |
+| **TOPLAM** | **250** | **95** | **155** |
 
-## Zorluk dengesi — tamamlanan 50 soru
-- Çok Kolay: 10
-- Kolay: 10
-- Orta: 10
-- Zor: 10
-- Çok Zor: 10
+## Zorluk dengesi — tamamlanan 95 soru
+- Çok Kolay: 19
+- Kolay: 17
+- Orta: 21
+- Zor: 20
+- Çok Zor: 18
+
+Sonraki 155 soruda toplam havuzu 50/50/50/50/50 hedefine yaklaştıracak zorluk dağılımı kullanılacak.
 
 ## Dosyalar
 - `assets/questions/verified_batch_001_ticaret.json` — 25 soru
 - `assets/questions/verified_batch_002_hukuk_yargilama.json` — 25 soru
+- `assets/questions/verified_batch_003_ceza.json` — 19 soru
+- `assets/questions/verified_batch_004_ceza_muhakemesi.json` — 13 soru
+- `assets/questions/verified_batch_005_icra_iflas.json` — 13 soru
 
-## Sıradaki paket
-Ceza Hukuku (19) + Ceza Yargılama Usulü (13) + İcra ve İflas Hukuku (13).
+## Durum
+**95 doğrulanmış soru tamamlandı.** Kalan 155 soru doğrulanmadan bu sayaca eklenmeyecek.
