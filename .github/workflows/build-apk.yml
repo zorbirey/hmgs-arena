@@ -35,6 +35,7 @@ jobs:
           cp lib/main.dart /tmp/hmgs_main.dart
           cp lib/main_smart.dart /tmp/hmgs_main_smart.dart
           cp lib/smart_notes.dart /tmp/hmgs_smart_notes.dart
+          cp lib/study_hub.dart /tmp/hmgs_study_hub.dart
           cp pubspec.yaml /tmp/hmgs_pubspec.yaml
 
       - name: Generate Android project files
@@ -43,6 +44,7 @@ jobs:
           cp /tmp/hmgs_main.dart lib/main.dart
           cp /tmp/hmgs_main_smart.dart lib/main_smart.dart
           cp /tmp/hmgs_smart_notes.dart lib/smart_notes.dart
+          cp /tmp/hmgs_study_hub.dart lib/study_hub.dart
           cp /tmp/hmgs_pubspec.yaml pubspec.yaml
 
       - name: Decode Zeus signature asset
@@ -133,7 +135,7 @@ jobs:
       - name: Upload Actions artifact
         uses: actions/upload-artifact@v4
         with:
-          name: HMGS-ARENA-SMART-NOTES-164Q
+          name: HMGS-ARENA-SMART-NOTES-30-164Q
           path: build/app/outputs/flutter-apk/app-release.apk
           if-no-files-found: error
           retention-days: 14
@@ -147,4 +149,4 @@ jobs:
           gh release delete apk-smart-notes --yes --cleanup-tag || true
           gh release create apk-smart-notes HMGS-ARENA-SMART-NOTES.apk \
             --title "HMGS ARENA Akıllı Notlar" \
-            --notes "164 doğrulanmış soru, 20 Akıllı Not kartı, sık karıştırılan bilgiler, süre-sayı notları ve tekrar/bildim takibi."
+            --notes "164 doğrulanmış soru, 30 Akıllı Not kartı, sık karıştırılan bilgiler, süre-sayı notları, istisnalar ve tekrar/bildim takibi."
