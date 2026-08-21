@@ -1,7 +1,7 @@
 name: hmgs_arena
 description: HMGS ARENA Android demo
 publish_to: "none"
-version: 0.2.1+3
+version: 0.3.0+4
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
@@ -23,6 +23,7 @@ flutter:
     - assets/branding/splash_arena_v2.jpg
     - assets/branding/inspired_from_zeus.jpg
     - assets/branding/app_icon_v2.jpg
+    - assets/questions/
 
 flutter_launcher_icons:
   android: true
