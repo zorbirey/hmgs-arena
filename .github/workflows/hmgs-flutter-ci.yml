@@ -35,7 +35,9 @@ jobs:
         run: flutter --version
 
       - name: Android platform dosyalarini olustur
-        run: flutter create . --platforms=android --project-name hmgs_arena
+        run: |
+          flutter create . --platforms=android --project-name hmgs_arena
+          rm -f test/widget_test.dart
 
       - name: Paketleri indir
         run: flutter pub get
