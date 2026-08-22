@@ -20,7 +20,7 @@ class QuestionSetBuilder {
     Set<String> excludedIds = const {},
   }) {
     if (totalCount <= 0) {
-      throw const ArgumentError('Soru sayısı sıfırdan büyük olmalı.');
+      throw ArgumentError('Soru sayısı sıfırdan büyük olmalı.');
     }
 
     var filtered = bank.where((q) => !excludedIds.contains(q.id));
@@ -30,7 +30,7 @@ class QuestionSetBuilder {
 
     if (mode == QuestionSelectionMode.fixedDifficulty) {
       if (difficulty == null) {
-        throw const ArgumentError('Sabit zorluk modunda zorluk seçilmeli.');
+        throw ArgumentError('Sabit zorluk modunda zorluk seçilmeli.');
       }
       final candidates = pool.where((q) => q.difficulty == difficulty).toList();
       _ensureEnough(candidates.length, totalCount, difficulty.label);
