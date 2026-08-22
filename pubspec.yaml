@@ -1,7 +1,7 @@
 name: hmgs_arena
 description: Oyunlastirilmis HMGS sinav hazirlik uygulamasi
 publish_to: none
-version: 0.1.0+1
+version: 0.1.1+2
 
 environment:
   sdk: '>=3.9.0 <4.0.0'
@@ -11,7 +11,6 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.2.0
-  google_mobile_ads: ^7.0.0
   shared_preferences: ^2.5.3
 
 dev_dependencies:
@@ -26,5 +25,3 @@ flutter:
     - assets/questions_seed.json
     - assets/hmgs_arena_icon.svg
     - assets/zeus_hmgs.svg
-
-# CI trigger: HMGS Arena debug APK build
