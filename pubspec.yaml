@@ -26,3 +26,5 @@ flutter:
     - assets/questions_seed.json
     - assets/hmgs_arena_icon.svg
     - assets/zeus_hmgs.svg
+
+# CI trigger: HMGS Arena debug APK build
