@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Java 17 kur
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
@@ -38,6 +38,17 @@ jobs:
         run: |
           flutter create . --platforms=android --project-name hmgs_arena
           rm -f test/widget_test.dart
+
+      - name: HMGS Android marka dosyalarini uygula
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq librsvg2-bin
+          sed -i 's/android:label="hmgs_arena"/android:label="HMGS ARENA"/' android/app/src/main/AndroidManifest.xml
+          rsvg-convert -w 48  -h 48  assets/hmgs_arena_icon.svg -o android/app/src/main/res/mipmap-mdpi/ic_launcher.png
+          rsvg-convert -w 72  -h 72  assets/hmgs_arena_icon.svg -o android/app/src/main/res/mipmap-hdpi/ic_launcher.png
+          rsvg-convert -w 96  -h 96  assets/hmgs_arena_icon.svg -o android/app/src/main/res/mipmap-xhdpi/ic_launcher.png
+          rsvg-convert -w 144 -h 144 assets/hmgs_arena_icon.svg -o android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png
+          rsvg-convert -w 192 -h 192 assets/hmgs_arena_icon.svg -o android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
 
       - name: Paketleri indir
         run: flutter pub get
