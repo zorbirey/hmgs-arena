@@ -5,45 +5,27 @@
     <linearGradient id="marble" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f6f3e9"/><stop offset=".32" stop-color="#d8d9d5"/><stop offset=".68" stop-color="#9ca4ad"/><stop offset="1" stop-color="#5d6874"/></linearGradient>
     <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d7a36d"/><stop offset=".5" stop-color="#a66e48"/><stop offset="1" stop-color="#633d2c"/></linearGradient>
     <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe39a"/><stop offset=".45" stop-color="#e4b44f"/><stop offset="1" stop-color="#865112"/></linearGradient>
-    <filter id="soft"><feGaussianBlur stdDeviation="22"/></filter>
     <filter id="glow"><feGaussianBlur stdDeviation="9"/></filter>
   </defs>
   <rect width="1080" height="1920" fill="url(#bg)"/>
   <ellipse cx="540" cy="865" rx="500" ry="720" fill="url(#halo)"/>
-  <g opacity=".28" fill="none" stroke="#6fcfff" stroke-width="10" filter="url(#glow)">
-    <path d="M72 300l170 190-82 88 172 180-90 116"/>
-    <path d="M1008 300L838 490l82 88-172 180 90 116"/>
-  </g>
-  <g opacity=".15" fill="none" stroke="#68bdf0" stroke-width="6">
-    <circle cx="540" cy="780" r="390"/><circle cx="540" cy="780" r="425"/><circle cx="540" cy="780" r="462"/>
-  </g>
+  <text x="540" y="115" text-anchor="middle" fill="#f3f4f6" font-size="54" font-family="sans-serif" font-weight="800" letter-spacing="7">INSPIRED FROM</text>
+  <text x="540" y="235" text-anchor="middle" fill="#f0c965" font-size="122" font-family="serif" font-weight="900" letter-spacing="7">ZEUS</text>
+  <g opacity=".28" fill="none" stroke="#6fcfff" stroke-width="10" filter="url(#glow)"><path d="M72 300l170 190-82 88 172 180-90 116"/><path d="M1008 300L838 490l82 88-172 180 90 116"/></g>
+  <g opacity=".15" fill="none" stroke="#68bdf0" stroke-width="6"><circle cx="540" cy="780" r="390"/><circle cx="540" cy="780" r="425"/><circle cx="540" cy="780" r="462"/></g>
   <g transform="translate(0 95)">
     <path d="M255 1325c35-200 135-324 285-335 150 11 250 135 285 335l72 405H183z" fill="#151d2a"/>
     <path d="M380 1060c-90 100-133 260-122 485h564c11-225-32-385-122-485-55 55-103 83-160 83s-105-28-160-83z" fill="#202b39"/>
     <ellipse cx="540" cy="705" rx="262" ry="335" fill="url(#skin)"/>
     <path d="M287 655c-2-242 96-410 253-410s255 168 253 410c-72-106-132-154-253-154s-181 48-253 154z" fill="url(#marble)"/>
-    <g fill="url(#marble)">
-      <circle cx="330" cy="470" r="134"/><circle cx="435" cy="345" r="142"/><circle cx="555" cy="318" r="150"/><circle cx="680" cy="365" r="142"/><circle cx="760" cy="500" r="130"/>
-      <ellipse cx="270" cy="685" rx="115" ry="205"/><ellipse cx="810" cy="685" rx="115" ry="205"/>
-      <circle cx="310" cy="820" r="102"/><circle cx="770" cy="820" r="102"/>
-    </g>
-    <path d="M365 664c43-34 99-42 150-18l-35 32c-39-13-71-8-112 14z" fill="#39251d"/>
-    <path d="M715 664c-43-34-99-42-150-18l35 32c39-13 71-8 112 14z" fill="#39251d"/>
-    <path d="M382 708c34-28 77-29 112 0-34 23-78 23-112 0z" fill="#eefcff"/>
-    <path d="M586 708c34-29 78-28 112 0-34 23-78 23-112 0z" fill="#eefcff"/>
-    <circle cx="443" cy="707" r="10" fill="#54bde9"/><circle cx="637" cy="707" r="10" fill="#54bde9"/>
-    <circle cx="443" cy="707" r="4" fill="#07101c"/><circle cx="637" cy="707" r="4" fill="#07101c"/>
-    <path d="M540 690l42 194-42 48-42-48z" fill="#8e573b" opacity=".76"/>
-    <path d="M452 920c60 28 116 28 176 0-34 54-142 54-176 0z" fill="#533126"/>
+    <g fill="url(#marble)"><circle cx="330" cy="470" r="134"/><circle cx="435" cy="345" r="142"/><circle cx="555" cy="318" r="150"/><circle cx="680" cy="365" r="142"/><circle cx="760" cy="500" r="130"/><ellipse cx="270" cy="685" rx="115" ry="205"/><ellipse cx="810" cy="685" rx="115" ry="205"/><circle cx="310" cy="820" r="102"/><circle cx="770" cy="820" r="102"/></g>
+    <path d="M365 664c43-34 99-42 150-18l-35 32c-39-13-71-8-112 14z" fill="#39251d"/><path d="M715 664c-43-34-99-42-150-18l35 32c39-13 71-8 112 14z" fill="#39251d"/>
+    <path d="M382 708c34-28 77-29 112 0-34 23-78 23-112 0z" fill="#eefcff"/><path d="M586 708c34-29 78-28 112 0-34 23-78 23-112 0z" fill="#eefcff"/>
+    <circle cx="443" cy="707" r="10" fill="#54bde9"/><circle cx="637" cy="707" r="10" fill="#54bde9"/><circle cx="443" cy="707" r="4" fill="#07101c"/><circle cx="637" cy="707" r="4" fill="#07101c"/>
+    <path d="M540 690l42 194-42 48-42-48z" fill="#8e573b" opacity=".76"/><path d="M452 920c60 28 116 28 176 0-34 54-142 54-176 0z" fill="#533126"/>
     <path d="M294 825c55 34 103 44 153 24l93 73 93-73c50 20 98 10 153-24l-53 330-120 184-73 72-73-72-120-184z" fill="url(#marble)"/>
-    <g fill="#8e98a3" opacity=".9">
-      <ellipse cx="404" cy="1010" rx="86" ry="106"/><ellipse cx="511" cy="1096" rx="93" ry="118"/><ellipse cx="626" cy="1010" rx="86" ry="106"/><ellipse cx="450" cy="1235" rx="82" ry="105"/><ellipse cx="575" cy="1260" rx="91" ry="113"/><ellipse cx="655" cy="1180" rx="78" ry="96"/>
-    </g>
-    <path d="M350 438c44-133 136-201 190-201s146 68 190 201l-55-27c-83-41-187-41-270 0z" fill="url(#gold)" opacity=".55"/>
-    <path d="M399 427c34-107 95-157 141-157s107 50 141 157" fill="none" stroke="#f3cd72" stroke-width="10" opacity=".75"/>
+    <g fill="#8e98a3" opacity=".9"><ellipse cx="404" cy="1010" rx="86" ry="106"/><ellipse cx="511" cy="1096" rx="93" ry="118"/><ellipse cx="626" cy="1010" rx="86" ry="106"/><ellipse cx="450" cy="1235" rx="82" ry="105"/><ellipse cx="575" cy="1260" rx="91" ry="113"/><ellipse cx="655" cy="1180" rx="78" ry="96"/></g>
+    <path d="M350 438c44-133 136-201 190-201s146 68 190 201l-55-27c-83-41-187-41-270 0z" fill="url(#gold)" opacity=".55"/><path d="M399 427c34-107 95-157 141-157s107 50 141 157" fill="none" stroke="#f3cd72" stroke-width="10" opacity=".75"/>
   </g>
-  <g transform="translate(810 1140)">
-    <path d="M95 0L8 245l82-29-116 335 242-406-92 34 92-179z" fill="url(#gold)"/>
-    <path d="M95 0L8 245l82-29-116 335" fill="none" stroke="#fff0b7" stroke-width="5" opacity=".58"/>
-  </g>
+  <g transform="translate(810 1140)"><path d="M95 0L8 245l82-29-116 335 242-406-92 34 92-179z" fill="url(#gold)"/><path d="M95 0L8 245l82-29-116 335" fill="none" stroke="#fff0b7" stroke-width="5" opacity=".58"/></g>
 </svg>
