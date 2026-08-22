@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -14,7 +16,7 @@ class HmgsMockExamConfig {
   static const int totalQuestions = 120;
   static const Duration totalDuration = Duration(minutes: 155);
   static const Duration halfTime = Duration(minutes: 77, seconds: 30);
-  static const double targetSecondsPerQuestion = totalDuration.inSeconds / totalQuestions;
+  static const double targetSecondsPerQuestion = 77.5;
 }
 
 class _ExamWatermark extends StatelessWidget {
