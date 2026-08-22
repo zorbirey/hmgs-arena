@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'ad_service.dart';
 import 'mock_exam_screen.dart';
+import 'study_center_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -213,7 +214,7 @@ class _HmgsArenaShellState extends State<HmgsArenaShell> {
   Widget build(BuildContext context) {
     final pages = [
       const _ArenaHome(),
-      const _StudyHome(),
+      const StudyCenterScreen(),
       MockExamHomeScreen(adService: _adService),
       const _WeakTopicsHome(),
       const _RankingHome(),
@@ -250,26 +251,11 @@ class _HmgsArenaShellState extends State<HmgsArenaShell> {
             unselectedFontSize: 10,
             iconSize: 22,
             items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home_rounded),
-                label: 'Arena',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.menu_book_rounded),
-                label: 'Çalışma',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.timer_rounded),
-                label: 'Deneme',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.analytics_rounded),
-                label: 'Zayıf',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.emoji_events_rounded),
-                label: 'Sıralama',
-              ),
+              BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: 'Arena'),
+              BottomNavigationBarItem(icon: Icon(Icons.menu_book_rounded), label: 'Çalışma'),
+              BottomNavigationBarItem(icon: Icon(Icons.timer_rounded), label: 'Deneme'),
+              BottomNavigationBarItem(icon: Icon(Icons.analytics_rounded), label: 'Zayıf'),
+              BottomNavigationBarItem(icon: Icon(Icons.emoji_events_rounded), label: 'Sıralama'),
             ],
           ),
         ),
@@ -302,10 +288,7 @@ class _WatermarkBackground extends StatelessWidget {
               child: FractionallySizedBox(
                 widthFactor: .92,
                 heightFactor: .92,
-                child: SvgPicture.asset(
-                  'assets/zeus_hmgs.svg',
-                  fit: BoxFit.contain,
-                ),
+                child: SvgPicture.asset('assets/zeus_hmgs.svg', fit: BoxFit.contain),
               ),
             ),
           ),
@@ -324,39 +307,8 @@ class _ArenaHome extends StatelessWidget {
       title: 'HMGS ARENA',
       showBrand: true,
       children: [
-        _GlassCard(
-          icon: Icons.bolt_rounded,
-          title: 'PER ASPERA AD ASTRA',
-          subtitle: 'Zorluklardan yıldızlara',
-        ),
-        _GlassCard(
-          icon: Icons.local_fire_department_rounded,
-          title: 'Günlük Meydan Okuma',
-          subtitle: 'Yeni sorular, seri ve XP sistemi için ana arena alanı.',
-        ),
-      ],
-    );
-  }
-}
-
-class _StudyHome extends StatelessWidget {
-  const _StudyHome();
-
-  @override
-  Widget build(BuildContext context) {
-    return const _TransparentPage(
-      title: 'Çalışma Modu',
-      children: [
-        _GlassCard(
-          icon: Icons.balance_rounded,
-          title: 'Ders ve konu seç',
-          subtitle: 'Çok Kolay, Kolay, Orta, Zor, Çok Zor veya dengeli rastgele çalışma.',
-        ),
-        _GlassCard(
-          icon: Icons.repeat_rounded,
-          title: 'Tekrar koruması',
-          subtitle: 'Yakın zamanda görülen sorular mümkün olduğunca tekrar gösterilmez.',
-        ),
+        _GlassCard(icon: Icons.bolt_rounded, title: 'PER ASPERA AD ASTRA', subtitle: 'Zorluklardan yıldızlara'),
+        _GlassCard(icon: Icons.local_fire_department_rounded, title: 'Günlük Meydan Okuma', subtitle: 'Yeni sorular, seri ve XP sistemi için ana arena alanı.'),
       ],
     );
   }
@@ -370,16 +322,8 @@ class _WeakTopicsHome extends StatelessWidget {
     return const _TransparentPage(
       title: 'Zayıf Konular',
       children: [
-        _GlassCard(
-          icon: Icons.analytics_rounded,
-          title: 'Kişisel zayıf konu analizi',
-          subtitle: 'Başarı oranı düşük ders ve konu başlıkları burada önceliklendirilir.',
-        ),
-        _GlassCard(
-          icon: Icons.style_rounded,
-          title: 'Bilgi Kartları',
-          subtitle: 'Yanlış sorunun aynısı yerine aynı konudan farklı sorular ve kısa konu kartları kullanılır.',
-        ),
+        _GlassCard(icon: Icons.analytics_rounded, title: 'Kişisel zayıf konu analizi', subtitle: 'Başarı oranı düşük ders ve konu başlıkları burada önceliklendirilir.'),
+        _GlassCard(icon: Icons.style_rounded, title: 'Bilgi Kartları', subtitle: 'Yanlış sorunun aynısı yerine aynı konudan farklı sorular ve kısa konu kartları kullanılır.'),
       ],
     );
   }
@@ -393,22 +337,14 @@ class _RankingHome extends StatelessWidget {
     return const _TransparentPage(
       title: 'Sıralama',
       children: [
-        _GlassCard(
-          icon: Icons.emoji_events_rounded,
-          title: 'Arena Sıralaması',
-          subtitle: 'Puan, seri ve deneme performansına göre sıralama alanı.',
-        ),
+        _GlassCard(icon: Icons.emoji_events_rounded, title: 'Arena Sıralaması', subtitle: 'Puan, seri ve deneme performansına göre sıralama alanı.'),
       ],
     );
   }
 }
 
 class _TransparentPage extends StatelessWidget {
-  const _TransparentPage({
-    required this.title,
-    required this.children,
-    this.showBrand = false,
-  });
+  const _TransparentPage({required this.title, required this.children, this.showBrand = false});
 
   final String title;
   final List<Widget> children;
@@ -418,25 +354,12 @@ class _TransparentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text(
-          title,
-          style: const TextStyle(fontWeight: FontWeight.w800),
-        ),
-      ),
+      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0, title: Text(title, style: const TextStyle(fontWeight: FontWeight.w800))),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 8, 20, 92),
         children: [
           if (showBrand) ...[
-            Center(
-              child: SizedBox(
-                width: 108,
-                height: 108,
-                child: SvgPicture.asset('assets/hmgs_arena_icon.svg'),
-              ),
-            ),
+            Center(child: SizedBox(width: 108, height: 108, child: SvgPicture.asset('assets/hmgs_arena_icon.svg'))),
             const SizedBox(height: 18),
           ],
           ...children.expand((widget) => [widget, const SizedBox(height: 14)]),
@@ -447,11 +370,7 @@ class _TransparentPage extends StatelessWidget {
 }
 
 class _GlassCard extends StatelessWidget {
-  const _GlassCard({
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-  });
+  const _GlassCard({required this.icon, required this.title, required this.subtitle});
 
   final IconData icon;
   final String title;
@@ -461,21 +380,12 @@ class _GlassCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: const Color(0xD90B223B),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18),
-        side: const BorderSide(color: Color(0x2877CFFF)),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18), side: const BorderSide(color: Color(0x2877CFFF))),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
         leading: Icon(icon, color: HmgsArenaApp.gold, size: 30),
-        title: Text(
-          title,
-          style: const TextStyle(fontWeight: FontWeight.w800),
-        ),
-        subtitle: Padding(
-          padding: const EdgeInsets.only(top: 6),
-          child: Text(subtitle),
-        ),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w800)),
+        subtitle: Padding(padding: const EdgeInsets.only(top: 6), child: Text(subtitle)),
       ),
     );
   }
