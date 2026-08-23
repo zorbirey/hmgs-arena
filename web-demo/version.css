@@ -1,0 +1,47 @@
+.version-badge {
+  position: fixed;
+  z-index: 100;
+  right: max(10px, env(safe-area-inset-right));
+  top: max(8px, env(safe-area-inset-top));
+  padding: 5px 8px;
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: 999px;
+  background: rgba(5, 6, 7, .86);
+  color: #ff666b;
+  font: 800 10px/1.2 ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .04em;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, .35);
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+}
+
+.app-screen::before {
+  content: "";
+  position: fixed;
+  right: max(-72px, calc((100vw - 620px) / 2 - 72px));
+  bottom: 62px;
+  width: min(58vw, 360px);
+  height: min(72vh, 540px);
+  background: url("assets/visual-20260823-04/watermark-zeus-20260823-04.png") center / contain no-repeat;
+  opacity: .035;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app-screen > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 700px) {
+  .app-screen {
+    left: auto !important;
+    right: auto !important;
+    margin-inline: auto;
+    transform: none !important;
+  }
+
+  .version-badge {
+    right: calc((100vw - 460px) / 2 + 10px);
+  }
+}

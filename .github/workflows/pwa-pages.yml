@@ -1,0 +1,38 @@
+name: HMGS PWA Pages
+
+on:
+  push:
+    branches: [ "feat/native-android-v1" ]
+    paths: [ "web-demo/**", "tools/verify-pwa.js", ".github/workflows/pwa-pages.yml" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: hmgs-pwa-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: PWA görsel zincirini doğrula
+        run: node tools/verify-pwa.js
+      - uses: actions/configure-pages@v5
+        
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web-demo
+      - name: GitHub Pages'a yayımla
+        id: deployment
+        uses: actions/deploy-pages@v4

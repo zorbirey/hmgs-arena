@@ -1,4 +1,8 @@
 const screens = [...document.querySelectorAll('.screen')];
+const expectedPwaVersion = '20260823-04';
+const appVersion = window.HMGS_PWA_VERSION || 'PWA-BILINMIYOR';
+if (appVersion !== expectedPwaVersion) console.error('PWA sürüm dosyaları eşleşmiyor.');
+document.getElementById('versionBadge').textContent = appVersion;
 const show = id => { screens.forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); };
 const toast = message => { const el=document.getElementById('toast'); el.textContent=message; el.classList.remove('hidden'); setTimeout(()=>el.classList.add('hidden'),2400); };
 
@@ -49,3 +53,14 @@ document.getElementById('demoExam').onclick=()=>toast('Tam deneme altyapısı ha
 
 renderDashboard();
 setTimeout(()=>{show('splash2');setTimeout(()=>show('dashboard'),3000)},3000);
+
+if ('serviceWorker' in navigator) {
+ window.addEventListener('load', async () => {
+  try {
+   const registration = await navigator.serviceWorker.register(`./service-worker.js?id=${appVersion}`);
+   await registration.update();
+  } catch (error) {
+   console.error('PWA çevrimdışı desteği başlatılamadı:', error);
+  }
+ });
+}
