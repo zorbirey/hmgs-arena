@@ -1,0 +1,26 @@
+/* HMGS Arena PWA 20260823-04 */
+:root { color-scheme: dark; --arena-red: #e52b2f; --arena-red-dark: #7a1115; --arena-black: #050607; --arena-panel: #101418; --arena-text: #f6f3ee; --arena-muted: #aeb2b9; }
+html, body { background: var(--arena-black); color: var(--arena-text); }
+.splash { background: var(--arena-black); }
+.splash img { object-position: center; }
+#splash1::before { content: none; }
+#splash2 img { width: min(92%, 760px); height: min(78%, 1120px); object-fit: contain; filter: drop-shadow(0 0 44px rgba(229,43,47,.2)); }
+.splash-copy { position: absolute; z-index: 4; left: 20px; right: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; text-shadow: 0 3px 16px #000; }
+.splash-copy-top { top: calc(38px + env(safe-area-inset-top)); }
+.splash-copy-bottom { bottom: calc(42px + env(safe-area-inset-bottom)); padding: 20px; border: 1px solid rgba(229,43,47,.44); border-radius: 22px; background: linear-gradient(180deg,rgba(5,6,7,.36),rgba(5,6,7,.88)); backdrop-filter: blur(8px); }
+.splash-copy strong { color: #fff; font: 900 clamp(32px,9vw,58px)/1 Georgia,serif; letter-spacing: .04em; }
+.splash-copy span { margin-top: 9px; color: #ff555b; font-size: clamp(13px,3.7vw,20px); font-weight: 900; letter-spacing: .18em; }
+.splash-copy small { margin-top: 7px; color: #d2d4d8; font-size: 13px; }
+.app-screen { background: radial-gradient(circle at 50% -5%,#3b080b 0,#111216 32%,#050607 72%); }
+.topbar,.quizbar { border-bottom-color: rgba(229,43,47,.24); background: rgba(5,6,7,.76); }
+.eyebrow,.hero-card strong,.section-title h2,.bottomnav .selected,.score,.result-grid b { color: #ff555b; }
+.level-badge { border-color: var(--arena-red); color: #fff; background: linear-gradient(145deg,#3c0a0d,#090a0c); box-shadow: 0 0 30px rgba(229,43,47,.22); }
+.hero-card,.weak,.exam-card,.result-grid div { background: linear-gradient(145deg,rgba(24,25,29,.96),rgba(8,9,11,.98)); border-color: rgba(229,43,47,.2); }
+.continue-card { border-color: rgba(229,43,47,.5); background: linear-gradient(105deg,#3b0a0d,#141519); }
+.continue-card .small,.continue-card .arrow { color: #ff5b60; }
+.primary { border-color: #ff555b; background: linear-gradient(135deg,#f04449,#8e171c); color: #fff; box-shadow: 0 8px 28px rgba(229,43,47,.2); }
+.exam-card button { border-color: rgba(255,85,91,.7); background:#401014; color:#ffd9da; }
+.weak span { color:#ff696e; }
+.bottomnav { background: rgba(5,6,7,.97); border-top-color: rgba(229,43,47,.28); }
+.feedback { background:#211013; border-left-color:var(--arena-red); }
+@media (min-width: 700px) { .splash-copy { max-width: 420px; margin-inline: auto; } }

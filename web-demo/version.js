@@ -1,1 +1,1 @@
-globalThis.HMGS_PWA_VERSION = '20260823-03';
+globalThis.HMGS_PWA_VERSION = '20260823-04';

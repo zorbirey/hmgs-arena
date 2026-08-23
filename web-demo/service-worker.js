@@ -1,22 +1,22 @@
-importScripts('./version.js?v=20260823-03');
+importScripts('./version.js?v=20260823-04');
 
 const CACHE_NAME = `hmgs-arena-${self.HMGS_PWA_VERSION}`;
 const APP_SHELL = [
-  './?pwa=20260823-03',
-  './index.html?pwa=20260823-03',
-  './styles.css?v=20260823-03',
-  './version.css?v=20260823-03',
-  './version.js?v=20260823-03',
-  './app.js?v=20260823-03',
-  './manifest.webmanifest?v=20260823-03',
-  './assets/visual-20260823-03/entry-zeus-20260823-03.png',
-  './assets/visual-20260823-03/brand-zeus-20260823-03.png',
-  './assets/visual-20260823-03/watermark-zeus-20260823-03.png',
-  './assets/visual-20260823-03/icon-64-20260823-03.png',
-  './assets/visual-20260823-03/icon-180-20260823-03.png',
-  './assets/visual-20260823-03/icon-192-20260823-03.png',
-  './assets/visual-20260823-03/icon-512-20260823-03.png',
-  './assets/visual-20260823-03/icon-maskable-512-20260823-03.png'
+  './?pwa=20260823-04',
+  './index.html?pwa=20260823-04',
+  './styles.css?v=20260823-04',
+  './version.css?v=20260823-04',
+  './visual-theme.css?v=20260823-04',
+  './version.js?v=20260823-04',
+  './app.js?v=20260823-04',
+  './manifest.webmanifest?v=20260823-04',
+  './assets/visual-20260823-04/entry-zeus-20260823-04.png',
+  './assets/visual-20260823-04/watermark-zeus-20260823-04.png',
+  './assets/visual-20260823-04/icon-64-20260823-04.png',
+  './assets/visual-20260823-04/icon-180-20260823-04.png',
+  './assets/visual-20260823-04/icon-192-20260823-04.png',
+  './assets/visual-20260823-04/icon-512-20260823-04.png',
+  './assets/visual-20260823-04/icon-maskable-512-20260823-04.png'
 ];
 
 self.addEventListener('install', event => {
@@ -41,6 +41,6 @@ self.addEventListener('fetch', event => {
         caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
         return response;
       })
-      .catch(() => caches.match(event.request).then(cached => cached || caches.match('./index.html')))
+      .catch(() => caches.match(event.request).then(cached => cached || caches.match('./index.html?pwa=20260823-04')))
   );
 });

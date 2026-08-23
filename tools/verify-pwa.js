@@ -3,8 +3,8 @@ const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
 const web = path.join(root, 'web-demo');
-const buildId = '20260823-03';
-const activeFiles = ['index.html', 'styles.css', 'version.css', 'version.js', 'app.js', 'manifest.webmanifest', 'service-worker.js'];
+const buildId = '20260823-04';
+const activeFiles = ['index.html', 'styles.css', 'version.css', 'visual-theme.css', 'version.js', 'app.js', 'manifest.webmanifest', 'service-worker.js'];
 const text = Object.fromEntries(activeFiles.map(file => [file, fs.readFileSync(path.join(web, file), 'utf8')]));
 const manifest = JSON.parse(text['manifest.webmanifest']);
 
@@ -12,13 +12,14 @@ function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
 
-for (const file of ['index.html', 'version.css', 'version.js', 'app.js', 'manifest.webmanifest', 'service-worker.js']) {
+for (const file of ['index.html', 'version.css', 'visual-theme.css', 'version.js', 'app.js', 'manifest.webmanifest', 'service-worker.js']) {
   assert(text[file].includes(buildId), `${file} PWA ID içermiyor`);
 }
 assert(manifest.version === buildId, 'Manifest sürümü PWA ID ile eşleşmiyor');
 assert(text['service-worker.js'].includes('hmgs-arena-${self.HMGS_PWA_VERSION}'), 'Cache adı sürüm değişkenini kullanmıyor');
 
 const legacyPatterns = [
+  'visual-20260823-03',
   '../assets/hmgs_arena_icon.svg',
   '../assets/zeus_hmgs.svg',
   '../native-android',
@@ -35,8 +36,7 @@ for (const pattern of legacyPatterns) {
 const visualDirectory = path.join(web, 'assets', `visual-${buildId}`);
 const expectedPngs = new Map([
   [`entry-zeus-${buildId}.png`, [1080, 1920]],
-  [`brand-zeus-${buildId}.png`, [1080, 1920]],
-  [`watermark-zeus-${buildId}.png`, [810, 1200]],
+  [`watermark-zeus-${buildId}.png`, [900, 1350]],
   [`icon-64-${buildId}.png`, [64, 64]],
   [`icon-180-${buildId}.png`, [180, 180]],
   [`icon-192-${buildId}.png`, [192, 192]],
