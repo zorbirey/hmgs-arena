@@ -1,19 +1,24 @@
-name: HMGS Flutter CI
+name: HMGS Android Quality Gate
 
 on:
   workflow_dispatch:
   push:
     branches: [ main ]
-    paths:
-      - 'lib/**'
-      - 'assets/**'
-      - 'test/**'
-      - 'pubspec.yaml'
-      - '.github/workflows/hmgs-flutter-ci.yml'
+  pull_request:
+    branches: [ main ]
+
+concurrency:
+  group: hmgs-android-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
-  verify:
+  quality-and-build:
+    name: Analyze, test and build Android APK
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
       - name: Depoyu al
@@ -25,14 +30,16 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Flutter kur
+      - name: Flutter stable kur
         uses: subosito/flutter-action@v2
         with:
           channel: stable
           cache: true
 
-      - name: Flutter surumunu yazdir
-        run: flutter --version
+      - name: Ortam bilgisini yazdir
+        run: |
+          flutter --version
+          java -version
 
       - name: Android platform dosyalarini olustur
         run: |
@@ -50,21 +57,61 @@ jobs:
           rsvg-convert -w 144 -h 144 assets/hmgs_arena_icon.svg -o android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png
           rsvg-convert -w 192 -h 192 assets/hmgs_arena_icon.svg -o android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
 
-      - name: Paketleri indir
-        run: flutter pub get
+      - name: Paketleri indir ve dogrula
+        run: |
+          flutter pub get
+          flutter pub deps --style=compact > dependency-report.txt
 
-      - name: Statik analiz
-        run: flutter analyze
+      - name: Statik analiz kalite kapisi
+        shell: bash
+        run: |
+          set -o pipefail
+          flutter analyze 2>&1 | tee analyze-report.txt
 
-      - name: Testleri calistir
-        run: flutter test
+      - name: Otomatik test kalite kapisi
+        shell: bash
+        run: |
+          set -o pipefail
+          flutter test --reporter expanded 2>&1 | tee test-report.txt
 
       - name: Debug APK derle
-        run: flutter build apk --debug
+        shell: bash
+        run: |
+          set -o pipefail
+          flutter build apk --debug 2>&1 | tee build-report.txt
+          test -f build/app/outputs/flutter-apk/app-debug.apk
+
+      - name: APK dosyasini yeniden adlandir
+        if: success()
+        run: |
+          cp build/app/outputs/flutter-apk/app-debug.apk "HMGS-Arena-build-${{ github.run_number }}.apk"
 
       - name: APK artifact yukle
+        if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: HMGS-Arena-debug-apk
-          path: build/app/outputs/flutter-apk/app-debug.apk
+          name: HMGS-Arena-Android-build-${{ github.run_number }}
+          path: HMGS-Arena-build-${{ github.run_number }}.apk
           if-no-files-found: error
+          retention-days: 14
+
+      - name: Teshis raporlarini yukle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: HMGS-Arena-CI-reports-${{ github.run_number }}
+          path: |
+            dependency-report.txt
+            analyze-report.txt
+            test-report.txt
+            build-report.txt
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Sonuc ozeti
+        if: always()
+        run: |
+          echo "## HMGS Android CI" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Build: #${{ github.run_number }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Commit: ${{ github.sha }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Android APK yalnizca analiz ve testler basariliysa yayinlanir." >> "$GITHUB_STEP_SUMMARY"
