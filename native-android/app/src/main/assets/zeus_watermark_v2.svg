@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1600">
+<defs>
+  <linearGradient id="stone" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eef0ed"/><stop offset=".45" stop-color="#aeb5ba"/><stop offset="1" stop-color="#66717b"/></linearGradient>
+</defs>
+<g fill="url(#stone)">
+  <ellipse cx="540" cy="560" rx="238" ry="320"/>
+  <ellipse cx="320" cy="365" rx="108" ry="160"/><ellipse cx="405" cy="250" rx="118" ry="140"/><ellipse cx="528" cy="210" rx="130" ry="135"/><ellipse cx="650" cy="245" rx="120" ry="140"/><ellipse cx="755" cy="365" rx="108" ry="160"/>
+  <ellipse cx="285" cy="565" rx="88" ry="176"/><ellipse cx="795" cy="565" rx="88" ry="176"/>
+  <path d="M300 680c60 45 108 56 152 35l88 70 88-70c44 21 92 10 152-35l-52 320-110 180-78 76-78-76-110-180z"/>
+</g>
+<g fill="#818b92"><ellipse cx="405" cy="850" rx="76" ry="100"/><ellipse cx="510" cy="940" rx="84" ry="112"/><ellipse cx="620" cy="850" rx="76" ry="100"/><ellipse cx="455" cy="1060" rx="72" ry="98"/><ellipse cx="570" cy="1085" rx="80" ry="106"/></g>
+<path d="M352 520c45-26 91-31 136-10l-32 29c-34-10-66-7-100 10z" fill="#737b80"/><path d="M728 520c-45-26-91-31-136-10l32 29c34-10 66-7 100 10z" fill="#737b80"/>
+<path d="M540 550l35 178-35 46-35-46z" fill="#778087"/><path d="M462 765c50 20 106 20 156 0-30 42-126 42-156 0z" fill="#6f787e"/>
+</svg>
