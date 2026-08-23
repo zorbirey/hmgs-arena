@@ -223,13 +223,13 @@ private fun ExamHome() {
     var session by remember { mutableStateOf<List<Question>?>(null) }
 
     session?.let { questions ->
-        QuizSession(questions = questions, title = "HMGS Tam Deneme", showExplanations = false, onExit = { session = null })
+        NativeExamSession(questions = questions, onExit = { session = null })
         return
     }
 
     Page("Deneme Sınavları") {
         ArenaCard("HMGS Tam Deneme", "120 çoktan seçmeli soru • 5 seçenek • 155 dakika • hedef 77,5 sn/soru")
-        ArenaCard("Sınav psikolojisi modu", "Sınav sırasında reklam yok. Süre bitince otomatik kapanır. Sonuç ekranı deneme sonunda açılır.")
+        ArenaCard("Sınav psikolojisi modu", "Sınav sırasında reklam yok. Süre bitince otomatik kapanır. 60. soruda zaman kontrolü yapılır. Son 10 saniyede cevapsız soruda uyarı verilir.")
         val ready = eligible.size >= 120
         Text(
             if (ready) "Deneme havuzu hazır: ${eligible.size} uygun soru" else "Deneme için 120 adet 5 seçenekli soru gerekir. Şu an uygun soru: ${eligible.size}",
