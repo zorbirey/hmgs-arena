@@ -8,11 +8,11 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.hmgsarena.app"
+        applicationId = "com.hmgsarena.nativeapp"
         minSdk = 29
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0-native-alpha"
+        versionCode = 2
+        versionName = "1.0-native-v2"
     }
 
     compileOptions {
