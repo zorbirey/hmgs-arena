@@ -1,0 +1,25 @@
+name: HMGS PWA CI
+
+on:
+  push:
+    branches: [ "feat/native-android-v1" ]
+    paths: [ "web-demo/**", "assets/**", "native-android/app/src/main/assets/**", ".github/workflows/pwa.yml" ]
+  pull_request:
+    paths: [ "web-demo/**", "assets/**", "native-android/app/src/main/assets/**", ".github/workflows/pwa.yml" ]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: JavaScript sözdizimini doğrula
+        run: |
+          node --check web-demo/version.js
+          node --check web-demo/app.js
+          node --check web-demo/service-worker.js
+      - name: PWA dosyalarını doğrula
+        run: |
+          node tools/verify-pwa.js

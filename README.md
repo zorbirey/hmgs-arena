@@ -2,6 +2,10 @@
 
 HMGS çalışma, deneme, XP/seviye ve sıralama uygulaması.
 
+## PWA geliştirme akışı
+
+Hızlı tasarım ve kullanım testleri `web-demo/` altındaki kurulabilir PWA üzerinden yapılır. Her denemede ekranda görünen sürüm kimliği `web-demo/version.js` dosyasında tutulur. Yeni bir deneme yayımlanmadan önce bu kimlik artırılır; service worker aynı kimlikle yeni önbellek oluşturup eski HMGS Arena önbelleklerini temizler.
+
 Bu repo artık gerçek Flutter mobil uygulama iskeletini barındırır. Android ve iOS ortak Flutter kod tabanı hedeflenmektedir.
 
 ## Ürün ilkeleri
