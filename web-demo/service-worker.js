@@ -1,22 +1,22 @@
-importScripts('./version.js?v=20260823-02');
+importScripts('./version.js?v=20260823-03');
 
 const CACHE_NAME = `hmgs-arena-${self.HMGS_PWA_VERSION}`;
 const APP_SHELL = [
-  './?pwa=20260823-02',
-  './index.html?pwa=20260823-02',
-  './styles.css?v=20260823-02',
-  './version.css?v=20260823-02',
-  './version.js?v=20260823-02',
-  './app.js?v=20260823-02',
-  './manifest.webmanifest?v=20260823-02',
-  './assets/visual-20260823-02/entry-zeus-20260823-02.png',
-  './assets/visual-20260823-02/brand-zeus-20260823-02.png',
-  './assets/visual-20260823-02/watermark-zeus-20260823-02.png',
-  './assets/visual-20260823-02/icon-64-20260823-02.png',
-  './assets/visual-20260823-02/icon-180-20260823-02.png',
-  './assets/visual-20260823-02/icon-192-20260823-02.png',
-  './assets/visual-20260823-02/icon-512-20260823-02.png',
-  './assets/visual-20260823-02/icon-maskable-512-20260823-02.png'
+  './?pwa=20260823-03',
+  './index.html?pwa=20260823-03',
+  './styles.css?v=20260823-03',
+  './version.css?v=20260823-03',
+  './version.js?v=20260823-03',
+  './app.js?v=20260823-03',
+  './manifest.webmanifest?v=20260823-03',
+  './assets/visual-20260823-03/entry-zeus-20260823-03.png',
+  './assets/visual-20260823-03/brand-zeus-20260823-03.png',
+  './assets/visual-20260823-03/watermark-zeus-20260823-03.png',
+  './assets/visual-20260823-03/icon-64-20260823-03.png',
+  './assets/visual-20260823-03/icon-180-20260823-03.png',
+  './assets/visual-20260823-03/icon-192-20260823-03.png',
+  './assets/visual-20260823-03/icon-512-20260823-03.png',
+  './assets/visual-20260823-03/icon-maskable-512-20260823-03.png'
 ];
 
 self.addEventListener('install', event => {

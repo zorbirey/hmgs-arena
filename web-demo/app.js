@@ -1,5 +1,5 @@
 const screens = [...document.querySelectorAll('.screen')];
-const expectedPwaVersion = '20260823-02';
+const expectedPwaVersion = '20260823-03';
 const appVersion = window.HMGS_PWA_VERSION || 'PWA-BILINMIYOR';
 if (appVersion !== expectedPwaVersion) console.error('PWA sürüm dosyaları eşleşmiyor.');
 document.getElementById('versionBadge').textContent = appVersion;

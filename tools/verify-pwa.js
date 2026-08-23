@@ -3,7 +3,7 @@ const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
 const web = path.join(root, 'web-demo');
-const buildId = '20260823-02';
+const buildId = '20260823-03';
 const activeFiles = ['index.html', 'styles.css', 'version.css', 'version.js', 'app.js', 'manifest.webmanifest', 'service-worker.js'];
 const text = Object.fromEntries(activeFiles.map(file => [file, fs.readFileSync(path.join(web, file), 'utf8')]));
 const manifest = JSON.parse(text['manifest.webmanifest']);
