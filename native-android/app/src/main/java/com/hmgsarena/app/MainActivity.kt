@@ -223,11 +223,11 @@ private fun ArenaCard(title: String, subtitle: String, onClick: (() -> Unit)? = 
 
 @Composable
 private fun ArenaHome(go: (ArenaTab) -> Unit) = Page("HMGS ARENA", "Bugünkü çalışma rotanı seç") {
-    ArenaCard("Günlük Meydan Okuma", "Seri, XP ve günlük hedef sisteminin ana arena alanı.", { go(ArenaTab.STUDY) }, true)
-    ArenaCard("Çalışma Merkezi", "Ders ve zorluk seçerek gerçek soru havuzundan odaklı tur başlat.") { go(ArenaTab.STUDY) }
-    ArenaCard("Deneme Sınavları", "155 dakikalık HMGS sınav psikolojisine uygun tam deneme.") { go(ArenaTab.EXAM) }
-    ArenaCard("Zayıf Konular", "Yanlışların ve düşük başarı oranlarının yoğunlaştığı konuları tekrar et.") { go(ArenaTab.WEAK) }
-    ArenaCard("Arena Sıralaması", "Puan, seri ve deneme performansını görüntüle.") { go(ArenaTab.RANK) }
+    ArenaCard("Günlük Meydan Okuma", "Seri, XP ve günlük hedef sisteminin ana arena alanı.", onClick = { go(ArenaTab.STUDY) }, accent = true)
+    ArenaCard("Çalışma Merkezi", "Ders ve zorluk seçerek gerçek soru havuzundan odaklı tur başlat.", onClick = { go(ArenaTab.STUDY) })
+    ArenaCard("Deneme Sınavları", "155 dakikalık HMGS sınav psikolojisine uygun tam deneme.", onClick = { go(ArenaTab.EXAM) })
+    ArenaCard("Zayıf Konular", "Yanlışların ve düşük başarı oranlarının yoğunlaştığı konuları tekrar et.", onClick = { go(ArenaTab.WEAK) })
+    ArenaCard("Arena Sıralaması", "Puan, seri ve deneme performansını görüntüle.", onClick = { go(ArenaTab.RANK) })
 }
 
 @Composable
